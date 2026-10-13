@@ -41,7 +41,7 @@ jobs:
         run: app/build/security-tools/gitleaks git --redact --report-format sarif --report-path app/build/reports/security/gitleaks.sarif --no-banner
       - name: Upload security evidence
         if: always()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: sast-and-secret-scan-evidence
           if-no-files-found: warn
@@ -76,7 +76,7 @@ jobs:
           jq -e '[.results[]?.packages[]?.vulnerabilities[]?] | length > 0' app/build/reports/security/osv-gate-fixture.json >/dev/null
       - name: Upload OSV evidence
         if: always()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: osv-scan-evidence
           if-no-files-found: error
