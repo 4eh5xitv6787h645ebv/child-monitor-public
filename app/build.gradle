@@ -30,8 +30,8 @@ android {
         applicationId = "de.rochefort.childmonitor"
         minSdk = 34
         targetSdk = 34
-        versionCode = 65
-        versionName = "3.3.32"
+        versionCode = 66
+        versionName = "3.3.33"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

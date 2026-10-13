@@ -12,7 +12,7 @@ Sun Jan 3, 2016: Release 0.2
 Mon Dec 28, 2015: Release 0.1
 
  * Initial release
-Tue Oct 13, 2026: Release 3.3.32
+Tue Oct 13, 2026: Release 3.3.33
 
   * Independent permanent pairing for multiple parent phones, with automatic
     bearer renewal that preserves every other parent's access.

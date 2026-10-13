@@ -29,7 +29,7 @@ import javax.net.ssl.HttpsURLConnection
 object UpdateChecker {
 
     private const val LATEST_RELEASE_URL =
-        "https://api.github.com/repos/4eh5xitv6787h645ebv/child-monitor/releases/latest"
+        "https://api.github.com/repos/4eh5xitv6787h645ebv/child-monitor-public/releases/latest"
     private const val PREFS = "UpdateChecker"
     private const val KEY_LAST_CHECK = "last_check_ms"
     private const val KEY_ENABLED = "auto_check_enabled"
