@@ -26,7 +26,7 @@ jobs:
       - name: Create security report directory
         run: mkdir -p app/build/reports/security app/build/security-tools
       - name: Run Android-specific static analysis
-        uses: MobSF/mobsfscan@3d87bc570c4614d705547bddb521395663dba353 # v0.4.5
+        uses: MobSF/mobsfscan@4645ea70bc093268502fe9f6df93e41bb482254a # v1.0.1
         with:
           args: app/src/main --type android --config security/mobsfscan.yml --sarif -o app/build/reports/security/mobsfscan.sarif
       - name: Fail on actionable SAST findings
