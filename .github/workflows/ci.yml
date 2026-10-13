@@ -141,9 +141,9 @@ jobs:
       - name: Install and verify official security CLIs
         run: |
           mkdir -p app/build/security-tools app/build/reports/security
-          curl -fsSL --retry 3 -o app/build/security-tools/cyclonedx https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.32.0/cyclonedx-linux-x64
+          curl -fsSL --retry 3 --retry-all-errors -o app/build/security-tools/cyclonedx https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.32.0/cyclonedx-linux-x64
           echo '454879e6a4a405c8a13bff49b8982adcb0596f3019b26b0811c66e4d7f0783e1  app/build/security-tools/cyclonedx' | sha256sum -c -
-          curl -fsSL --retry 3 -o app/build/security-tools/osv-scanner https://github.com/google/osv-scanner/releases/download/v2.3.8/osv-scanner_linux_amd64
+          curl -fsSL --retry 3 --retry-all-errors -o app/build/security-tools/osv-scanner https://github.com/google/osv-scanner/releases/download/v2.3.8/osv-scanner_linux_amd64
           echo 'bc98e15319ed0d515e3f9235287ba53cdc5535d576d24fd573978ecfe9ab92dc  app/build/security-tools/osv-scanner' | sha256sum -c -
           chmod +x app/build/security-tools/cyclonedx app/build/security-tools/osv-scanner
       - name: Validate SBOM and enforce license policy
