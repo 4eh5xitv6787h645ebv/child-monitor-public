@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--
+      [#238] Cleartext is permitted app-wide, intentionally, because the never-pinned
+      fallback reaches the child by LAN IP over http://<child-ip>:11000 (snapshot + web
+      console). Android's network-security-config <domain> rules match DNS hostnames only —
+      they CANNOT express IP / CIDR ranges — so there is no config-level way to scope
+      cleartext to RFC1918 addresses connected to by raw IP. The real transport decision is
+      enforced in-app by TransportPolicy (#203): once a child has ever presented a TLS pin,
+      the parent refuses to downgrade to cleartext (fails closed), and never-pinned
+      connections surface a user-visible insecure-transport warning.
+
+      The previous <domain-config> block listed IP literals (192.168.0.0, 10.0.0.0, …) as
+      <domain> entries. Those match nothing (they are not hostnames), so they provided a
+      false impression of LAN-only scoping while changing no actual behaviour. Removed.
+
+      The raw audio socket (port 10000) is a plain TCP Socket, not part of the HTTP stack,
+      so it is unaffected by this file regardless.
+
+      system trust anchors are retained for ordinary public HTTPS (e.g. the GitHub release
+      check); the child's own TLS uses certificate pinning, not these anchors.
+    -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

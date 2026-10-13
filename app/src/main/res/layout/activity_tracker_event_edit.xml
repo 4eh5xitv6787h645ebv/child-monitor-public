@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/editTimestampLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_primary"
+            android:text="@string/tracker_edit_event_title"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/editSafetyHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:accessibilityLiveRegion="polite"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_edit_medication_safety"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_edit_time" />
+
+        <Button
+            android:id="@+id/editTimestampButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:tag="theme_btn_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_edit_kind" />
+
+        <Spinner
+            android:id="@+id/editKindSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:contentDescription="@string/tracker_edit_kind" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_edit_type_safety"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/editSubkind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/tracker_edit_subkind"
+            android:importantForAutofill="no"
+            android:inputType="textCapCharacters"
+            android:maxLength="100" />
+
+        <Spinner
+            android:id="@+id/editSubkindSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:contentDescription="@string/tracker_edit_subkind"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/editValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/tracker_edit_value"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal|numberSigned" />
+
+        <EditText
+            android:id="@+id/editValue2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/tracker_edit_value_second"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal|numberSigned" />
+
+        <EditText
+            android:id="@+id/editNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/tracker_note_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLength="2000" />
+
+        <Button
+            android:id="@+id/editSaveButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:enabled="false"
+            android:tag="theme_btn_primary"
+            android:text="@string/tracker_save_changes" />
+    </LinearLayout>
+</ScrollView>

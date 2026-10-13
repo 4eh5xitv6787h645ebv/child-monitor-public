@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tracker_sleep_title"
+            android:tag="theme_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_sleep_type" />
+        <RadioGroup
+            android:id="@+id/sleepTypeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/typeNap" android:text="@string/tracker_sleep_nap"
+                android:tag="theme_text_primary" android:checked="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:id="@+id/typeNight" android:text="@string/tracker_sleep_night"
+                android:tag="theme_text_primary"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_sleep_location" />
+        <Spinner
+            android:id="@+id/locationSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/safetyHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:tag="theme_text_primary"
+            android:textStyle="bold"
+            android:text="@string/tracker_sleep_safety_header" />
+
+        <LinearLayout
+            android:id="@+id/safetyChecklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:tag="theme_text_secondary"
+            android:text="@string/tracker_sleep_room_temp" />
+        <EditText
+            android:id="@+id/tempEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:hint="@string/tracker_example_room_temperature" />
+
+        <TextView
+            android:id="@+id/tempAdvice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:tag="theme_text_secondary"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:tag="theme_btn_primary"
+            android:text="@string/tracker_sleep_start" />
+
+        <Button
+            android:id="@+id/endButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:tag="theme_btn_secondary"
+            android:text="@string/tracker_sleep_end_last" />
+    </LinearLayout>
+</ScrollView>

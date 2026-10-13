@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tracker_profile_title"
+            android:tag="theme_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/nameEdit"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_profile_name"
+            android:tag="theme_text_secondary" />
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_profile_dob"
+            android:tag="theme_text_secondary" />
+        <Button
+            android:id="@+id/pickDobButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:tag="theme_btn_secondary"
+            android:text="@string/tracker_profile_pick" />
+        <TextView
+            android:id="@+id/dobText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:tag="theme_text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_profile_due"
+            android:tag="theme_text_secondary" />
+        <Button
+            android:id="@+id/pickDueButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:tag="theme_btn_secondary"
+            android:text="@string/tracker_profile_pick" />
+        <TextView
+            android:id="@+id/dueText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:tag="theme_text_secondary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_profile_sex"
+            android:tag="theme_text_secondary" />
+        <RadioGroup
+            android:id="@+id/sexGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/sexFemale" android:text="@string/tracker_sex_female"
+                android:tag="theme_text_primary" android:checked="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:id="@+id/sexMale" android:text="@string/tracker_sex_male"
+                android:tag="theme_text_primary"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:id="@+id/sexUnknown" android:text="@string/tracker_sex_unknown"
+                android:tag="theme_text_primary"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_profile_jurisdiction"
+            android:tag="theme_text_secondary" />
+        <Spinner
+            android:id="@+id/scheduleSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_profile_allergy_tier"
+            android:tag="theme_text_secondary" />
+        <RadioGroup
+            android:id="@+id/tierGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/tierLow" android:text="@string/tracker_tier_low"
+                android:tag="theme_text_primary" android:checked="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:id="@+id/tierModerate" android:text="@string/tracker_tier_moderate"
+                android:tag="theme_text_primary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:id="@+id/tierHigh" android:text="@string/tracker_tier_high"
+                android:tag="theme_text_primary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:tag="theme_btn_primary"
+            android:text="@string/tracker_save" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/tracker_profile_delete"
+            android:textColor="#ff8080"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

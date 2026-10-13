@@ -1,0 +1,83 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "17 19 * * 0"
+
+permissions:
+  contents: read
+
+jobs:
+  sast-and-secrets:
+    name: Android SAST + full-history secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          # Gitleaks must inspect every historical revision, not just the tip.
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.11"
+      - name: Create security report directory
+        run: mkdir -p app/build/reports/security app/build/security-tools
+      - name: Run Android-specific static analysis
+        uses: MobSF/mobsfscan@3d87bc570c4614d705547bddb521395663dba353 # v0.4.5
+        with:
+          args: app/src/main --type android --config security/mobsfscan.yml --sarif -o app/build/reports/security/mobsfscan.sarif
+      - name: Fail on actionable SAST findings
+        run: jq -e '[.runs[]?.results[]? | select(.level == "error")] | length == 0' app/build/reports/security/mobsfscan.sarif >/dev/null
+      - name: Install checksum-verified Gitleaks
+        run: |
+          archive=app/build/security-tools/gitleaks_8.30.1_linux_x64.tar.gz
+          curl -fsSL --retry 3 -o "$archive" https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  app/build/security-tools/gitleaks_8.30.1_linux_x64.tar.gz' | sha256sum -c -
+          tar -xzf "$archive" -C app/build/security-tools gitleaks
+      - name: Scan the complete Git history for credentials
+        run: app/build/security-tools/gitleaks git --redact --report-format sarif --report-path app/build/reports/security/gitleaks.sarif --no-banner
+      - name: Upload security evidence
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: sast-and-secret-scan-evidence
+          if-no-files-found: warn
+          path: app/build/reports/security/
+
+  osv:
+    name: OSV resolved dependency scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+      - name: Install checksum-verified OSV-Scanner
+        run: |
+          mkdir -p app/build/security-tools app/build/reports/security
+          scanner=app/build/security-tools/osv-scanner
+          curl -fsSL --retry 3 -o "$scanner" https://github.com/google/osv-scanner/releases/download/v2.3.8/osv-scanner_linux_amd64
+          echo 'bc98e15319ed0d515e3f9235287ba53cdc5535d576d24fd573978ecfe9ab92dc  app/build/security-tools/osv-scanner' | sha256sum -c -
+          chmod +x "$scanner"
+      - name: Scan the resolved release lockfile
+        run: app/build/security-tools/osv-scanner scan source --lockfile=app/gradle.lockfile --format json --output-file app/build/reports/security/osv-release.json
+      - name: Prove the vulnerability gate rejects the fixture
+        run: |
+          set +e
+          app/build/security-tools/osv-scanner scan source --lockfile=security/fixtures/log4shell/gradle.lockfile --format json --output-file app/build/reports/security/osv-gate-fixture.json
+          fixture_status=$?
+          set -e
+          if [ "$fixture_status" -eq 0 ]; then
+            echo 'OSV gate failed to reject the deliberately vulnerable fixture' >&2
+            exit 1
+          fi
+          jq -e '[.results[]?.packages[]?.vulnerabilities[]?] | length > 0' app/build/reports/security/osv-gate-fixture.json >/dev/null
+      - name: Upload OSV evidence
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: osv-scan-evidence
+          if-no-files-found: error
+          path: app/build/reports/security/osv-*.json

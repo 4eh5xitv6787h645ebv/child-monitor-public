@@ -1,0 +1,1 @@
+Child Monitor allows two Android devices to act as a baby monitor. 

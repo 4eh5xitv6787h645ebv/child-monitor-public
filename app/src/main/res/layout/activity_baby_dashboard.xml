@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/babyNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="@string/tracker_dashboard_title" />
+
+        <TextView
+            android:id="@+id/babyAgeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_secondary"
+            android:textSize="14sp"
+            android:paddingTop="4dp" />
+
+        <Spinner
+            android:id="@+id/childSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/quickRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
+
+            <Button
+                android:id="@+id/btnFeed"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:tag="theme_btn_primary"
+                android:text="@string/tracker_btn_feed"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnDiaper"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:tag="theme_btn_primary"
+                android:text="@string/tracker_btn_diaper"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnSleep"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:tag="theme_btn_primary"
+                android:text="@string/tracker_btn_sleep" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/quickRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp">
+
+            <Button
+                android:id="@+id/btnGrowth"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:tag="theme_btn_primary"
+                android:text="@string/tracker_btn_growth"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnMed"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:tag="theme_btn_primary"
+                android:text="@string/tracker_btn_med"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnAllergen"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:tag="theme_btn_primary"
+                android:text="@string/tracker_btn_allergen" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/summaryHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/tracker_today_summary" />
+
+        <TextView
+            android:id="@+id/todaySummaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_secondary"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp" />
+
+        <TextView
+            android:id="@+id/nextVaccineHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/tracker_next_vaccine" />
+
+        <TextView
+            android:id="@+id/nextVaccineText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_secondary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/guidanceHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/tracker_guidance_header" />
+
+        <TextView
+            android:id="@+id/guidanceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="theme_text_secondary"
+            android:textSize="12sp"
+            android:lineSpacingExtra="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnTimeline"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:layout_marginEnd="4dp"
+                android:tag="theme_btn_secondary"
+                android:text="@string/tracker_btn_timeline" />
+            <Button
+                android:id="@+id/btnVaccine"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:layout_marginEnd="4dp"
+                android:tag="theme_btn_secondary"
+                android:text="@string/tracker_btn_vaccine" />
+            <Button
+                android:id="@+id/btnMilestones"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:tag="theme_btn_secondary"
+                android:text="@string/tracker_btn_milestones" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSources"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:tag="theme_btn_secondary"
+            android:text="@string/tracker_view_sources" />
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:tag="theme_btn_secondary"
+            android:text="@string/tracker_btn_profile" />
+
+        <Button
+            android:id="@+id/btnExportEvents"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:tag="theme_btn_secondary"
+            android:text="@string/tracker_btn_export_events" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp">
+
+            <Button
+                android:id="@+id/btnPumping"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:tag="theme_btn_secondary"
+                android:text="@string/tracker_btn_pumping" />
+
+            <Button
+                android:id="@+id/btnTummy"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:tag="theme_btn_secondary"
+                android:text="@string/tracker_btn_tummy" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

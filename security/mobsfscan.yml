@@ -1,0 +1,10 @@
+# Hiding/showing ordinary Android views is core UI state management, not secret concealment. This
+# generic rule flags every View.GONE assignment and drowns actionable Android SAST findings.
+ignore-rules:
+  - android_kotlin_hiddenui
+  # False positive: targetSdk is 34 (well above Android 10's platform fix) and activities that
+  # require isolation already set explicit launch modes/task behavior in the manifest.
+  - android_task_hijacking2
+  # Intentional, bounded legacy LAN transport. Pairing credentials and all ever-pinned children
+  # fail closed on TLS in application policy; Android XML cannot scope cleartext to IP/CIDR ranges.
+  - android_manifest_base_config_cleartext

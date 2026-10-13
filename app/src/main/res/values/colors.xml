@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#99D3AE</color>
+    <color name="primary_dark">#76B58D</color>
+
+    <color name="secondary_light">#DCE7DF</color>
+
+    <color name="accent">#E7B9A5</color>
+
+    <color name="background">#111915</color>
+    <color name="background_fallback">#1D2A24</color>
+    <color name="background_gradient_start">#111915</color>
+    <color name="background_gradient_mid">#24342D</color>
+    <color name="background_gradient_end">#3A4C44</color>
+
+    <color name="surface_card">#263730</color>
+    <color name="surface_soft">#30433A</color>
+    <color name="surface_border">#70887D</color>
+
+    <color name="text_primary">#F6F3EA</color>
+    <color name="text_secondary">#CDD5CD</color>
+    <color name="text_hint">#AEB9B1</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <color name="button_primary">#9AD8B2</color>
+    <color name="button_secondary">#3B5046</color>
+    <color name="button_secondary_border">#89A296</color>
+    <color name="button_success">#DDAE98</color>
+    <color name="button_talk_idle">#7CC69B</color>
+    <color name="button_danger">#E38982</color>
+    <color name="interaction_ripple">#44FFFFFF</color>
+
+    <color name="status_connected">#9EE0B9</color>
+    <color name="status_connecting">#F2D392</color>
+    <color name="status_disconnected">#E9A69E</color>
+    <color name="status_idle">#BAC9C0</color>
+
+
+
+    <!-- #175 (CM-TRK-CR-P1-10): extracted from hex literals previously hardcoded in
+         tracker activities. Picked from the existing values so behaviour is unchanged
+         (the tracker UI uses a different blue palette than the rest of the app); they're
+         now in one place where theme variants can override them. -->
+    <color name="tracker_text_primary">#E6EBFF</color>
+    <color name="tracker_text_secondary">#A8B5FF</color>
+    <color name="tracker_text_muted">#8892C6</color>
+    <color name="tracker_timeline_row_title">#C4C9E8</color>
+    <color name="tracker_source_title">#B5D0FF</color>
+    <color name="tracker_source_url">#90A4F7</color>
+    <color name="tracker_bg_surface">#28324E</color>
+    <color name="tracker_warning">#FF8A65</color>
+    <!-- #163: red highlight for the NIAID pre-introduction safety gate. -->
+    <color name="tracker_danger">#FF6B6B</color>
+    <color name="tracker_danger_bg">#3A1620</color>
+</resources>

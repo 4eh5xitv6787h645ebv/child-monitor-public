@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- #206: scope the shared cache to a dedicated export subdir instead of the
+         whole cache root, so the FileProvider can only ever grant files we
+         explicitly write there. -->
+    <cache-path name="shared_logs" path="shared_exports/" />
+    <!-- Allow sharing files from the app's internal files directory -->
+    <files-path name="diagnostic_logs" path="diagnostic_logs/" />
+    <!-- #309: CSV/JSON exports (sleep log; also the tracker CSV export) live in files/exports/.
+         Without this entry FileProvider.getUriForFile() throws on those files. -->
+    <files-path name="exports" path="exports/" />
+</paths>

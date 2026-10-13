@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Camera is optional at install time because parent-only mode does not use one. -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK" />
+    <!-- #288: save snapshots to the gallery on pre-29 only; API 29+ uses scoped MediaStore (no perm). -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_CAMERA"/>
+    <uses-permission
+        android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission
+        android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.HIDE_OVERLAY_WINDOWS" />
+    <!-- WatchdogReceiver re-arms a single exact alarm every ~90s while a parent session is
+         active so we can resurrect ListenService within ~1.5 min of an OS kill. The
+         baby-monitor's safety-critical wake fits Google Play's USE_EXACT_ALARM policy
+         (this permission is auto-granted to qualifying apps; SCHEDULE_EXACT_ALARM remains
+         as a fallback for older devices / sideloads where the user can toggle it). -->
+    <uses-permission
+        android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission
+        android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- Required on API 34+ for the anaphylaxis full-screen-intent fallback
+         notification (CM-TRK-CR4-P0-1). Without this permission the system
+         downgrades setFullScreenIntent to a heads-up notification, defeating
+         the point of the emergency alert. -->
+    <uses-permission
+        android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <!-- #292: vibration-only / silent alert mode. Normal permission (auto-granted), needed for
+         pre-O notification vibration via the builder; on O+ the channel vibrates on our behalf. -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:name="de.rochefort.childmonitor.ChildMonitorApp"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config">
+
+        <!-- #296: app-lock screen — opaque, not exported, not in recents, singleTop. -->
+        <activity
+            android:name="de.rochefort.childmonitor.LockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
+
+        <!-- Keep existing services with full package path -->
+        <service
+            android:name="de.rochefort.childmonitor.ListenService"
+            android:enabled="true"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false"/>
+        <service
+            android:name="de.rochefort.childmonitor.BootService"
+            android:enabled="true"
+            android:foregroundServiceType="shortService"
+            android:exported="false"/>
+        <service
+            android:name="de.rochefort.childmonitor.MonitorService"
+            android:enabled="true"
+            android:foregroundServiceType="camera|microphone|mediaPlayback"
+            android:exported="false"/>
+
+        <!-- directBootAware lets us observe (and deliberately ignore) LOCKED_BOOT_COMPLETED.
+             Actual auto-start is scheduled only after BOOT_COMPLETED plus a one-minute stable
+             window, preventing Child Mode from contributing to a fragile reboot cycle. -->
+        <receiver android:name="de.rochefort.childmonitor.BootReceiver"
+            android:exported="true"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Alarm fired after Android has remained fully booted for one minute. If the phone
+             reboots again first, AlarmManager drops the timer and the next boot starts it over. -->
+        <receiver android:name="de.rochefort.childmonitor.DeferredBootReceiver"
+            android:exported="false"/>
+
+        <!-- Optional, user-approved authority used only to lock the child screen when the shared
+             night-light/soother bedtime timer expires. -->
+        <receiver
+            android:name="de.rochefort.childmonitor.ScreenOffAdminReceiver"
+            android:description="@string/screenOffAdminDescription"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/screen_off_device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- AlarmManager-driven watchdog that resurrects ListenService when Android kills
+             the parent process. See WatchdogReceiver.kt for the full rationale; bugreport
+             evidence showed 11x REMOVE_TASK + 2x SIGKILL exits over 5 days on Pixel 8 Pro
+             Android 16, with the FGS notification disappearing each time. -->
+        <receiver android:name="de.rochefort.childmonitor.WatchdogReceiver"
+            android:exported="false"/>
+
+        <!-- #158: fires an INFO notification when the next safe dose of a
+             medication becomes allowable. Scheduled by MedicationEntryActivity
+             via AlarmManager.setExactAndAllowWhileIdle. -->
+        <receiver android:name="de.rochefort.childmonitor.tracker.MedicationReminderReceiver"
+            android:exported="false"/>
+
+        <!-- Original activities -->
+        <activity
+            android:name="de.rochefort.childmonitor.StartActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="de.rochefort.childmonitor.MonitorActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.ChildPairingActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Pair with Parent"
+            android:parentActivityName="de.rochefort.childmonitor.MonitorActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.DiscoverActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!-- QR framing and the current camera transform are portrait-only. Android 16 may letterbox
+             or override this request; the activities already handle configuration changes. -->
+        <activity
+            android:name="de.rochefort.childmonitor.ParentScanActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Scan Child QR"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi"
+            android:parentActivityName="de.rochefort.childmonitor.DiscoverActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.ListenActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:supportsPictureInPicture="true"
+            android:parentActivityName="de.rochefort.childmonitor.DiscoverActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.LocalDisplayActivity"
+            android:exported="false"
+            android:parentActivityName="de.rochefort.childmonitor.ListenActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.LogViewerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Diagnostic Logs" />
+
+        <!-- Keep the existing portrait camera transform until the preview supports rotation. -->
+        <activity
+            android:name="de.rochefort.childmonitor.FullscreenCameraActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="false"
+            tools:ignore="DiscouragedApi"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:parentActivityName="de.rochefort.childmonitor.ListenActivity" />
+
+        <!-- #312: remote night-light on the child screen. Shown over the lockscreen, launched by
+             MonitorService; not in recents, single instance so updates re-deliver via onNewIntent. -->
+        <activity
+            android:name="de.rochefort.childmonitor.NightLightActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:showOnLockScreen="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <!-- #303: deaf/HoH screen-flash overlay (parent), launched via the disconnect FSI. -->
+        <activity
+            android:name="de.rochefort.childmonitor.FlashOverlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:showOnLockScreen="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <!-- #302: parent blackout / monitor mode (full-screen black, min brightness, tap to exit). -->
+        <activity
+            android:name="de.rochefort.childmonitor.BlackoutActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.DashboardActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <!-- #357: advertised Settings screen (granular alert effects + other toggles). -->
+        <activity
+            android:name="de.rochefort.childmonitor.SettingsActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <!-- #375: set / change / remove the optional in-app app-lock PIN; opened from Settings. -->
+        <activity
+            android:name="de.rochefort.childmonitor.PinSetupActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:parentActivityName="de.rochefort.childmonitor.SettingsActivity" />
+
+        <!-- Kids: named permanent child links (a roster of saved child devices to reconnect to). -->
+        <activity
+            android:name="de.rochefort.childmonitor.KidsActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.SetupWizardActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.PairingActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.DiagnosticsActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.SecurityStatusActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.DiagnosticsActivity" />
+
+        <!-- #366: friendly, card-styled privacy screen (the home privacy chip lands here). -->
+        <activity
+            android:name="de.rochefort.childmonitor.PrivacyActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <!-- #310: encrypted backup/restore of settings & pairings (opened from Settings). configChanges
+             keeps the in-flight passphrase across the SAF round-trip / rotation. -->
+        <activity
+            android:name="de.rochefort.childmonitor.BackupActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.SettingsActivity" />
+
+        <!-- #311/#312: parent in-app remote controls (night light + soother) for the connected child,
+             opened from the live ListenActivity session. -->
+        <activity
+            android:name="de.rochefort.childmonitor.ChildControlsActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.ListenActivity" />
+
+        <!-- #291/#308: parent view of the child's alert config + event hooks; opened from the
+             live ListenActivity session. -->
+        <activity
+            android:name="de.rochefort.childmonitor.ChildAlertsActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.ListenActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.TimelineActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.nighttimeline.NightTimelineActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <!-- #314: multi-night sleep trends, opened from the Night Timeline screen. -->
+        <activity
+            android:name="de.rochefort.childmonitor.nighttimeline.MultiNightTrendsActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.nighttimeline.NightTimelineActivity" />
+
+        <activity
+            android:name="de.rochefort.childmonitor.AudioCalibrationActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+
+        <!-- Baby tracker module -->
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_dashboard_title"
+            android:parentActivityName="de.rochefort.childmonitor.StartActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.ChildProfileActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_profile_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.FeedEntryActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_feed_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.DiaperEntryActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_diaper_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.SleepEntryActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_sleep_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.GrowthEntryActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_growth_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.MedicationEntryActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_med_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.AllergenActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_allergen_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.SourcesActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_sources_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.AnaphylaxisActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_anaphylaxis_header"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.TrackerTimelineActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_timeline_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.TrackerEventEditActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:label="@string/tracker_edit_event_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.TrackerTimelineActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.VaccineActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_vaccine_title_full"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+        <activity
+            android:name="de.rochefort.childmonitor.tracker.ui.MilestonesActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/tracker_milestones_title"
+            android:parentActivityName="de.rochefort.childmonitor.tracker.ui.BabyDashboardActivity" />
+
+        <!-- FileProvider for sharing log files -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- Parent quick-action widget (CM-UX-003) -->
+        <receiver
+            android:name="de.rochefort.childmonitor.ux.ParentActionsWidget"
+            android:exported="false"
+            android:label="@string/widget_parent_actions_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_parent_actions_info" />
+        </receiver>
+    </application>
+</manifest>

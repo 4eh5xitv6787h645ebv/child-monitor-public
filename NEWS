@@ -1,0 +1,22 @@
+Sun Jan 3, 2016: Release 0.2
+
+  * Improve and simplify audio playback to reduce dropped
+    audio samples
+
+  * A parent device may pair with a child device by entering
+    the child's IP address and port.
+
+  * Japanese translation
+
+
+Mon Dec 28, 2015: Release 0.1
+
+ * Initial release
+Tue Oct 13, 2026: Release 3.3.32
+
+  * Independent permanent pairing for multiple parent phones, with automatic
+    bearer renewal that preserves every other parent's access.
+  * More reliable simultaneous audio, screen-off reconnects, talkback, and TLS.
+  * Android 14 or newer is now required.
+  * Remove private diagnostic bundles, device identifiers, and captured
+    screenshots from the distributable source tree.

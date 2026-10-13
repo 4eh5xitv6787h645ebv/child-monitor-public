@@ -1,0 +1,191 @@
+name: CI
+
+on:
+  push:
+    branches: [main, stabilize/child-monitor, maxtt]
+  pull_request:
+    branches: [main, stabilize/child-monitor, maxtt]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    name: Lint + Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - name: Grant gradle wrapper perms
+        run: chmod +x ./gradlew
+      - name: Android lint (release variant)
+        run: ./gradlew lintRelease --no-daemon --stacktrace
+      - name: Prove Android lint rejects an unsupported API call
+        run: scripts/prove-lint-gate.sh
+      - name: Unit tests
+        run: ./gradlew testReleaseUnitTest --no-daemon --stacktrace
+      - name: Archive reports
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: lint-and-test-reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+
+  assemble-debug:
+    name: Assemble Debug APK
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - name: Grant gradle wrapper perms
+        run: chmod +x ./gradlew
+      - name: Assemble debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+  instrumented-safety:
+    name: Instrumented safety (API ${{ matrix.api-level }})
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        # Minimum supported, target SDK, and current stable Android API (#462).
+        api-level: [34, 36]
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - name: Grant Gradle wrapper permissions
+        run: chmod +x ./gradlew
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Run on-device safety suite
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          target: default
+          profile: pixel_2
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          # The runner executes each script line as a separate shell. Keep status capture and the
+          # diagnostic conditional inside one checked-in process (#477).
+          script: bash scripts/run-instrumented-safety.sh ${{ matrix.api-level }}
+      - name: Archive instrumentation reports and device evidence
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: instrumented-api-${{ matrix.api-level }}
+          if-no-files-found: warn
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
+            app/build/device-diagnostics/
+
+  perf-smoke:
+    name: Perf Smoke (JVM)
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - name: Grant gradle wrapper perms
+        run: chmod +x ./gradlew
+      - name: Run perf smoke tests
+        run: ./gradlew testReleaseUnitTest --tests 'de.rochefort.childmonitor.perf.*' --no-daemon
+      - name: Run audio pipeline tests
+        run: ./gradlew testReleaseUnitTest --tests 'de.rochefort.childmonitor.audio.*' --no-daemon
+
+  sbom:
+    name: Supply-chain evidence
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - name: Grant gradle wrapper perms
+        run: chmod +x ./gradlew
+      - name: Generate CycloneDX 1.6 release-runtime SBOM
+        run: ./gradlew :app:cyclonedxDirectBom --no-daemon --stacktrace
+      - name: Install and verify official security CLIs
+        run: |
+          mkdir -p app/build/security-tools app/build/reports/security
+          curl -fsSL --retry 3 -o app/build/security-tools/cyclonedx https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.32.0/cyclonedx-linux-x64
+          echo '454879e6a4a405c8a13bff49b8982adcb0596f3019b26b0811c66e4d7f0783e1  app/build/security-tools/cyclonedx' | sha256sum -c -
+          curl -fsSL --retry 3 -o app/build/security-tools/osv-scanner https://github.com/google/osv-scanner/releases/download/v2.3.8/osv-scanner_linux_amd64
+          echo 'bc98e15319ed0d515e3f9235287ba53cdc5535d576d24fd573978ecfe9ab92dc  app/build/security-tools/osv-scanner' | sha256sum -c -
+          chmod +x app/build/security-tools/cyclonedx app/build/security-tools/osv-scanner
+      - name: Validate SBOM and enforce license policy
+        run: |
+          mapfile -t sbom_candidates < <(find app/build/reports/sbom -maxdepth 1 -type f -name 'child-monitor-*.cdx.json' -print)
+          if [ "${#sbom_candidates[@]}" -ne 1 ]; then
+            echo "Expected exactly one generated release SBOM, found ${#sbom_candidates[@]}" >&2
+            printf '%s\n' "${sbom_candidates[@]}" >&2
+            exit 1
+          fi
+          sbom_path=${sbom_candidates[0]}
+          sbom_name=$(basename "$sbom_path")
+          version=${sbom_name#child-monitor-}
+          version=${version%.cdx.json}
+          if [ -z "$version" ] || [ "$sbom_name" != "child-monitor-$version.cdx.json" ]; then
+            echo "Could not derive a release version from $sbom_name" >&2
+            exit 1
+          fi
+          app/build/security-tools/cyclonedx validate --input-file "$sbom_path" --input-format json --input-version v1_6 --fail-on-errors
+          scripts/generate-license-report.sh "$sbom_path" security/license-policy.json "app/build/reports/sbom/licenses-$version.tsv"
+      - name: Scan resolved release dependencies with OSV
+        run: app/build/security-tools/osv-scanner scan source --lockfile=app/gradle.lockfile --format json --output-file app/build/reports/security/osv-release.json
+      - name: Prove the vulnerability gate detects Log4Shell fixture
+        run: |
+          set +e
+          app/build/security-tools/osv-scanner scan source --lockfile=security/fixtures/log4shell/gradle.lockfile --format json --output-file app/build/reports/security/osv-gate-fixture.json
+          fixture_status=$?
+          set -e
+          if [ "$fixture_status" -eq 0 ]; then
+            echo 'OSV gate failed to reject the deliberately vulnerable fixture' >&2
+            exit 1
+          fi
+          jq -e '[.results[]?.packages[]?.vulnerabilities[]?] | length > 0' app/build/reports/security/osv-gate-fixture.json >/dev/null
+      - name: Generate evidence checksums
+        run: |
+          cd app/build/reports
+          sha256sum sbom/* security/* > supply-chain-evidence.sha256
+      - name: Upload supply-chain evidence
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: supply-chain-evidence
+          path: |
+            app/build/reports/sbom/
+            app/build/reports/security/
+            app/build/reports/supply-chain-evidence.sha256

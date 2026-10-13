@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tracker_feed_title"
+            android:tag="theme_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/feedKindGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+            <RadioButton
+                android:id="@+id/feedBreastL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracker_feed_breast_L"
+                android:tag="theme_text_primary"
+                android:checked="true" />
+            <RadioButton
+                android:id="@+id/feedBreastR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracker_feed_breast_R"
+                android:tag="theme_text_primary" />
+            <RadioButton
+                android:id="@+id/feedBreastBoth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracker_feed_breast_both"
+                android:tag="theme_text_primary" />
+            <RadioButton
+                android:id="@+id/feedBottleEbm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracker_feed_bottle_ebm"
+                android:tag="theme_text_primary" />
+            <RadioButton
+                android:id="@+id/feedBottleFormula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracker_feed_bottle_formula"
+                android:tag="theme_text_primary" />
+            <RadioButton
+                android:id="@+id/feedSolid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracker_feed_solid"
+                android:tag="theme_text_primary" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_duration_min"
+            android:tag="theme_text_secondary" />
+        <EditText
+            android:id="@+id/durationEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:hint="@string/tracker_example_duration" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_volume_ml"
+            android:tag="theme_text_secondary" />
+        <EditText
+            android:id="@+id/volumeEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:hint="@string/tracker_example_volume" />
+
+        <TextView
+            android:id="@+id/targetsHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:tag="theme_text_secondary"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/noteEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/tracker_note_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLength="2000" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:tag="theme_btn_primary"
+            android:text="@string/tracker_save" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  #190-HIGH (allowBackup): exclude PHI and secrets from cloud backup and from
+  ADB-style device-transfer backups. Without this, adb backup / Auto Backup
+  would copy:
+    - shared_prefs/SessionAuthorityPrefs (bearer tokens)
+    - shared_prefs/ParentSession        (per-child bearer tokens)
+    - shared_prefs/PairingPreferences   (trusted device IDs)
+    - shared_prefs/ChildProfiles        (baby names, DOB, allergens — HIPAA/GDPR PHI)
+    - files/local_tls.p12               (would-be TLS private key when #129 lands)
+    - files/audit_log.jsonl             (auth events with remote IPs)
+    - files/diagnostic_logs/*           (network state, signal strength, IPs)
+    - databases/tracker.db              (feed/diaper/sleep/medication/vaccine history)
+
+  The top-level android:allowBackup="false" is the belt; this file is the braces.
+  Even apps that ship allowBackup=true should never let any of these escape, and
+  using both keeps the protection in place on devices where the global flag is
+  overridden by an MDM.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="SessionAuthorityPrefs.xml"/>
+        <exclude domain="sharedpref" path="ParentSession.xml"/>
+        <exclude domain="sharedpref" path="ParentIdentity.xml"/>
+        <exclude domain="sharedpref" path="PairingPreferences.xml"/>
+        <exclude domain="sharedpref" path="ChildProfiles.xml"/>
+        <exclude domain="sharedpref" path="TalkbackPreferences.xml"/>
+        <exclude domain="file" path="local_tls.p12"/>
+        <exclude domain="file" path="audit_log.jsonl"/>
+        <exclude domain="file" path="diagnostic_logs/"/>
+        <exclude domain="file" path="heartbeats/"/>
+        <exclude domain="file" path="session_state.json"/>
+        <exclude domain="file" path="bundles/"/>
+        <exclude domain="database" path="tracker.db"/>
+        <exclude domain="database" path="tracker.db-journal"/>
+        <exclude domain="database" path="tracker.db-wal"/>
+        <exclude domain="database" path="tracker.db-shm"/>
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="SessionAuthorityPrefs.xml"/>
+        <exclude domain="sharedpref" path="ParentSession.xml"/>
+        <exclude domain="sharedpref" path="ParentIdentity.xml"/>
+        <exclude domain="sharedpref" path="PairingPreferences.xml"/>
+        <exclude domain="file" path="local_tls.p12"/>
+    </device-transfer>
+</data-extraction-rules>

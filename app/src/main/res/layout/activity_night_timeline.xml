@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nightTimelineTitle"
+        android:textColor="@color/text_primary"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nightTimelineSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp" />
+
+    <de.rochefort.childmonitor.nighttimeline.NightTimelineView
+        android:id="@+id/nightTimelineView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/nightTimelineLegend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/nightTimelineLegend"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <!-- #314: multi-night sleep trends (one bar per night). -->
+    <Button
+        android:id="@+id/nightTimelineTrends"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button_secondary"
+        android:tag="theme_btn_secondary"
+        android:text="@string/sleepTrendsTitle"
+        android:textAllCaps="false"
+        android:textColor="@color/text_primary" />
+
+    <Button
+        android:id="@+id/nightTimelineSensitivity"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_button_secondary"
+        android:tag="theme_btn_secondary"
+        android:text="@string/nightTimelineSensitivity"
+        android:textAllCaps="false"
+        android:textColor="@color/text_primary" />
+
+    <Button
+        android:id="@+id/nightTimelineRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_button_secondary"
+        android:tag="theme_btn_secondary"
+        android:text="@string/refresh"
+        android:textAllCaps="false"
+        android:textColor="@color/text_primary" />
+
+    <!-- #309: export the sleep/event log (CSV or JSON) to share with a pediatrician. -->
+    <Button
+        android:id="@+id/nightTimelineExport"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_button_secondary"
+        android:tag="theme_btn_secondary"
+        android:text="@string/nightTimelineExport"
+        android:textAllCaps="false"
+        android:textColor="@color/text_primary" />
+
+</LinearLayout>

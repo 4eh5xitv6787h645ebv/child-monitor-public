@@ -1,0 +1,21 @@
+*.iml
+.gradle
+/.kotlin/
+/local.properties
+/.idea
+.DS_Store
+/build
+/app/build
+/app/release
+/captures
+# Full phone bugreports and app-private logs can contain credentials/PII.
+/device-diagnostics/
+/diagnostics/
+/reports/
+/.claude/settings.local.json
+*.jks
+*.keystore
+*.p12
+*.pfx
+.env
+.env.*

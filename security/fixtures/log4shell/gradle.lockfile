@@ -1,0 +1,4 @@
+# This file is intentionally vulnerable and is never resolved by Gradle.
+# CI scans it explicitly to prove the OSV gate detects CVE-2021-44228/Log4Shell (#463).
+org.apache.logging.log4j:log4j-core:2.14.1=testFixture
+empty=

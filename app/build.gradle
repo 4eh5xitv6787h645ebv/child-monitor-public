@@ -1,0 +1,203 @@
+plugins {
+    id 'com.android.application'
+    id 'org.cyclonedx.bom'
+}
+
+def releaseSigningPropertyNames = [
+    'CM_RELEASE_STORE_FILE',
+    'CM_RELEASE_STORE_PASSWORD',
+    'CM_RELEASE_KEY_ALIAS',
+    'CM_RELEASE_KEY_PASSWORD',
+]
+def releaseSigningValues = releaseSigningPropertyNames.collectEntries { propertyName ->
+    def value = providers.gradleProperty(propertyName)
+        .orElse(providers.environmentVariable(propertyName))
+        .orNull
+        ?.trim()
+    [(propertyName): value]
+}
+def configuredReleaseSigningValues = releaseSigningValues.values().count { it }
+if (configuredReleaseSigningValues > 0 && configuredReleaseSigningValues < releaseSigningValues.size()) {
+    def missing = releaseSigningValues.findAll { !it.value }.keySet().join(', ')
+    throw new GradleException("Incomplete release signing configuration; missing: ${missing}")
+}
+def hasReleaseSigning = configuredReleaseSigningValues == releaseSigningValues.size()
+
+android {
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = "de.rochefort.childmonitor"
+        minSdk = 34
+        targetSdk = 34
+        versionCode = 65
+        versionName = "3.3.32"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            release {
+                storeFile = file(releaseSigningValues.CM_RELEASE_STORE_FILE)
+                storePassword = releaseSigningValues.CM_RELEASE_STORE_PASSWORD
+                keyAlias = releaseSigningValues.CM_RELEASE_KEY_ALIAS
+                keyPassword = releaseSigningValues.CM_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles(getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt')
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.release
+            }
+        }
+        debug {
+            // Skip PNG crunching on debug builds for faster resource processing.
+            crunchPngs = false
+        }
+    }
+
+    dependencies {
+    }
+    namespace = 'de.rochefort.childmonitor'
+    buildFeatures {
+        buildConfig = true
+        // Disable build features we don't use so their tasks are skipped.
+        aidl = false
+        renderScript = false
+        shaders = false
+        resValues = false
+        viewBinding = false
+        dataBinding = false
+        compose = false
+        mlModelBinding = false
+        prefab = false
+    }
+    lint {
+        // Release validation must fail closed. A non-fatal lint configuration previously let a
+        // real min-SDK crash ship even though CI invoked lintRelease (#456).
+        checkReleaseBuilds = true
+        abortOnError = true
+        // Localization regressions are release blockers (#458). This app currently supports
+        // English only; when a complete reviewed locale is added, every base string must be
+        // translated before its resource set can ship.
+        // Fixed-rate executors can replay a large backlog when Android uncaches a process. Keep
+        // that reliability warning fatal so the DLNA refresh regression from #485 cannot return.
+        // Quantity grammar is spoken verbatim by TalkBack; keep raw count strings from recreating
+        // the singular-label regressions fixed in #487.
+        // Child-health inputs are never credential/identity autofill targets (#488).
+        error 'MissingTranslation', 'SetTextI18n', 'HardcodedText', 'DiscouragedApi',
+            'DefaultLocale', 'PluralsCandidate', 'Autofill'
+    }
+    compileOptions {
+        // AGP, Gradle, CI, and app bytecode use the documented JDK 17 baseline (#464).
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    testOptions {
+        execution = 'ANDROIDX_TEST_ORCHESTRATOR'
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+    dependenciesInfo {
+        // AGP's SDK dependency-info pair ("SDKP") is encrypted with fresh randomness inside the
+        // APK Signing Block. It made identical clean builds differ even though all ZIP entries and
+        // the approved RSA identity were identical (#468). Releases publish a CycloneDX SBOM, so
+        // this Play-specific opaque metadata is both redundant and hostile to reproducibility.
+        includeInApk = false
+        includeInBundle = false
+    }
+}
+
+// Lint and unit-test release variants remain usable without private credentials, but anything
+// that packages a distributable release must fail closed instead of emitting an unsigned APK or
+// silently falling back to Android's universal debug key (#457).
+def releasePackagingRequested = gradle.startParameter.taskNames.any { requestedTask ->
+    requestedTask.tokenize(':').last().toLowerCase().matches('(assemble|bundle|package|install).*release')
+}
+if (releasePackagingRequested && !hasReleaseSigning) {
+    throw new GradleException(
+        'Release signing is required. Configure CM_RELEASE_STORE_FILE, ' +
+            'CM_RELEASE_STORE_PASSWORD, CM_RELEASE_KEY_ALIAS, and CM_RELEASE_KEY_PASSWORD.'
+    )
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.12.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    // Lifecycle-aware biometric/device-credential app lock (#375). This replaces the deprecated
+    // createConfirmDeviceCredentialIntent path and keeps cancellation/error handling fail-closed.
+    implementation 'androidx.biometric:biometric:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Lifecycle aware services (needed for CameraX inside the foreground service)
+    implementation 'androidx.lifecycle:lifecycle-service:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+
+    // CameraX for lightweight video snapshot streaming
+    implementation 'androidx.camera:camera-camera2:1.3.1'
+    implementation 'androidx.camera:camera-lifecycle:1.3.1'
+    implementation 'androidx.camera:camera-view:1.3.1'
+
+    // NanoHTTPD + WebSocket for the local web console
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'org.nanohttpd:nanohttpd-websocket:2.3.1'
+
+    // Opt-in local MQTT / Home Assistant bridge (#305). The pure Java async client works on
+    // Android without a background Android Service and supports TLS, LWT, and reconnect.
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+
+    // Coroutines to simplify background streaming tasks
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // QR code: zxing core for encoding (child), zxing-android-embedded for the
+    // camera-based scanner UI (parent). No Play Services dependency.
+    implementation 'com.google.zxing:core:3.5.3'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
+    // Unit testing
+    testImplementation 'junit:junit:4.13.2'
+    // Match AGP 9.3's built-in Kotlin runtime/compiler line.
+    testImplementation 'org.jetbrains.kotlin:kotlin-test:2.2.10'
+    // Real org.json so tests relying on JSONObject don't hit Android's unmocked stubs.
+    testImplementation 'org.json:json:20240303'
+
+    // On-device lifecycle/storage coverage (#462). Versions match the stable AndroidX Test
+    // channel documented by Android Developers (January 2026).
+    androidTestImplementation 'androidx.test:core-ktx:1.7.0'
+    androidTestImplementation 'androidx.test:runner:1.7.0'
+    androidTestImplementation 'androidx.test:rules:1.7.0'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+    androidTestUtil 'androidx.test:orchestrator:1.6.1'
+}
+
+tasks.named('cyclonedxDirectBom') {
+    // Public releases ship only the resolved release runtime graph. Test, debug, and build-tool
+    // dependencies belong in CI provenance, not in the APK's consumer SBOM (#463).
+    includeConfigs = ['releaseRuntimeClasspath']
+    projectType = org.cyclonedx.model.Component.Type.APPLICATION
+    componentGroup = android.namespace
+    componentName = 'child-monitor-android'
+    componentVersion = android.defaultConfig.versionName
+    includeBomSerialNumber = true
+    includeLicenseText = false
+    includeMetadataResolution = true
+    includeBuildEnvironment = false
+    includeBuildSystem = true
+    def projectLicense = new org.cyclonedx.model.License()
+    projectLicense.id = 'GPL-3.0-or-later'
+    def projectLicenseChoice = new org.cyclonedx.model.LicenseChoice()
+    projectLicenseChoice.addLicense(projectLicense)
+    licenseChoice.set(projectLicenseChoice)
+    jsonOutput = file("$buildDir/reports/sbom/child-monitor-${android.defaultConfig.versionName}.cdx.json")
+    // The Android toolchain brings an older Xerces implementation that rejects the CycloneDX
+    // XML validator's accessExternalDTD property. JSON remains the canonical CycloneDX 1.6
+    // release format and is independently validated in CI.
+    xmlOutput.unsetConvention()
+}

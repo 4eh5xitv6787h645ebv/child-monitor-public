@@ -1,0 +1,588 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app_gradient">
+
+    <de.rochefort.childmonitor.AnimatedGardenBackgroundView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ScrollView
+        android:id="@+id/listenScrollRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="20dp"
+        tools:context="de.rochefort.childmonitor.ListenActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="22dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@id/parentDeviceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/parentDevice"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_surface_card"
+            android:tag="theme_card"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/connectedToTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/connectedTo"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/connectedTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/status"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:accessibilityLiveRegion="polite"
+                    android:background="@drawable/bg_status_chip"
+                    android:tag="theme_chip"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp" />
+
+                <!-- #366: per-connection control-channel transport (TLS-pinned vs cleartext). Set in
+                     code from TransportPolicy; gone until the connection target is known. -->
+                <TextView
+                    android:id="@+id/transportBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_status_chip"
+                    android:tag="theme_chip"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- #450: AppTheme has no action bar, so the platform options menu has no overflow
+                 affordance. This explicit 48dp button exposes that same session-tools menu. -->
+            <Button
+                android:id="@+id/sessionToolsButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/sessionToolsOpen"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- #291/#308/#311/#312: on-screen entry points to the child-control screens. These were
+             previously only in the (action-bar-less) options menu, which has no overflow button on
+             modern phones, so they were unreachable — surfaced here as visible buttons. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_surface_card"
+            android:tag="theme_card"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/childControlsSectionTitle"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/childControlsButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/childControlsOpen"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/childAlertsButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/childAlertsOpen"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_surface_card"
+            android:tag="theme_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cameraPreviewTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cameraPreview"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/toggleCameraButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:tag="theme_btn_secondary"
+                    android:minWidth="96dp"
+                    android:text="@string/cameraOff"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="236dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_surface_soft"
+                android:clipToOutline="true"
+                android:tag="theme_soft">
+
+                <ImageView
+                    android:id="@+id/cameraPreviewImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background_fallback"
+                    android:contentDescription="@string/cameraPreview"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tapForFullscreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_status_chip"
+                    android:tag="theme_chip"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/tapForFullscreen"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp" />
+
+                <!-- #313: enter picture-in-picture to keep watching while using other apps.
+                     Hidden at runtime when the device has no PiP support. -->
+                <TextView
+                    android:id="@+id/pipButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_status_chip"
+                    android:tag="theme_chip"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="4dp"
+                    android:contentDescription="@string/pipButtonDescription"
+                    android:text="@string/pipButton"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <!-- #338: snapshot replay scrubber — revealed during replay; drag to step through the
+                 child's buffered frames, "● Live" returns to the live view. -->
+            <LinearLayout
+                android:id="@+id/replayScrubBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/replayLiveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:tag="theme_btn_secondary"
+                    android:text="@string/replayLive"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp" />
+
+                <SeekBar
+                    android:id="@+id/replayScrubSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/replayScrubDesc" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/refreshSnapshotButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/refreshSnapshot"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <!-- #288: one-tap save the current snapshot to the device gallery. -->
+            <Button
+                android:id="@+id/saveSnapshotButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/saveSnapshot"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/localDisplayButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/localDisplayButton"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/adaptiveVideoCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:buttonTint="@color/button_primary"
+                android:text="@string/adaptiveVideoRefresh"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/videoPolicyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <!-- #325: snapshot cadence selector — sets the child's encode rate (POST
+                 /api/snapshot/cadence). The active mode is shown at full opacity. -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/snapshotCadenceLabel"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cadenceEcoButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_secondary"
+                    android:tag="theme_btn_secondary"
+                    android:text="@string/cadenceEco"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/cadenceBalancedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:tag="theme_btn_secondary"
+                    android:text="@string/cadenceBalanced"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/cadenceNearLiveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:tag="theme_btn_secondary"
+                    android:text="@string/cadenceNearLive"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/cadenceAutoButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:tag="theme_btn_secondary"
+                    android:text="@string/cadenceAuto"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/motionDetectionCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:buttonTint="@color/button_primary"
+                android:text="@string/motionDetection"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <SeekBar
+                android:id="@+id/motionThresholdSeek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:contentDescription="@string/motionThresholdDesc"
+                android:max="40"
+                android:progress="18" />
+
+            <TextView
+                android:id="@+id/motionStatusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <de.rochefort.childmonitor.VolumeView
+                android:id="@+id/volume"
+                android:layout_width="match_parent"
+                android:layout_height="132dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_surface_soft"
+                android:clipToOutline="true"
+                android:contentDescription="@string/volumeMeterDesc"
+                android:focusable="true"
+                android:importantForAccessibility="yes"
+                android:tag="theme_soft" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_surface_card"
+            android:tag="theme_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <Button
+                android:id="@+id/talkBackButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_button_talk_idle"
+                android:tag="theme_btn_talk"
+                android:text="@string/holdToTalk"
+                android:textAllCaps="false"
+                android:textColor="@color/text_on_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/talkBackHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="@string/talkBackHint"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <!-- #338 (part of #284): replay the last ~30s of audio from the child's ring buffer. -->
+            <Button
+                android:id="@+id/replayAudioButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/replayAudio"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/muteAlertsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/button_primary"
+                android:text="@string/muteAlerts"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp" />
+
+            <CheckBox
+                android:id="@+id/persistentAlarmCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:buttonTint="@color/button_primary"
+                android:text="@string/persistentAlarm"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/quickReconnectLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/quickReconnect"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/ipHistoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/reconnectButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_primary"
+                android:tag="theme_btn_primary"
+                android:text="@string/reconnect"
+                android:textAllCaps="false"
+                android:textColor="@color/text_on_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- #302: enter blackout/monitor mode (dark screen; audio + alerts keep running). -->
+            <Button
+                android:id="@+id/blackoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_secondary"
+                android:tag="theme_btn_secondary"
+                android:text="@string/blackoutButton"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+    <!-- #313: full-bleed surface shown only while in picture-in-picture; the rest of the screen
+         (listenScrollRoot) is hidden so the PiP window shows just the live frame. -->
+    <ImageView
+        android:id="@+id/pipPreviewImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:contentDescription="@string/cameraPreview"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+
+</FrameLayout>

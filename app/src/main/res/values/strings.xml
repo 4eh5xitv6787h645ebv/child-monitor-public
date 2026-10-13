@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Child Monitor Dev</string>
+    <string name="childMode">Child Mode</string>
+    <string name="parentMode">Parent Mode</string>
+    <string name="connectToChildMonitor">Connect to your child monitor</string>
+    <string name="themePicker">Choose Theme</string>
+    <string name="chooseTheme">Choose Theme</string>
+    <string name="themeOverriddenByHighContrast">High contrast is on — it overrides the theme. Turn it off in Settings to use these palettes.</string>
+    <string name="useAsParentDevice">Use as Parent Device</string>
+    <string name="useAsChildDevice">Use as Child Device</string>
+    <string name="childDescription">Device is placed with baby, and sends audio to a paired parent device</string>
+    <string name="parentDescription">Pairs with child device and plays received audio</string>
+    <string name="quickParentReconnect">Quick Reconnect to Last Child</string>
+    <string name="quickParentReconnectDescription">Connect directly to the most recently used child device</string>
+    <!-- Kids: named permanent child links -->
+    <string name="kidsButton">Kids (saved devices)</string>
+    <string name="kidsTitle">Kids</string>
+    <string name="kidsSubtitle">Your saved child devices. Tap a kid to reconnect — it stays linked even if its IP changes, with no re-pairing.</string>
+    <string name="kidsListTitle">Your kids</string>
+    <string name="kidsEmpty">No kids yet. Add a child device by scanning its QR code, then give it a name (e.g. \"kid1\") so it stays permanently linked.</string>
+    <string name="kidsAddButton">➕ Add a kid (scan QR)</string>
+    <string name="kidsAddHint">Pair a child device by scanning the QR code on its Pairing screen. It will appear here to name and reconnect to anytime.</string>
+    <string name="kidConnect">Connect</string>
+    <string name="kidRename">Name</string>
+    <string name="kidRemove">Remove</string>
+    <string name="kidCancel">Cancel</string>
+    <string name="kidRenameSave">Save</string>
+    <string name="kidRenameTitle">Name this kid</string>
+    <string name="kidRenameHint">e.g. kid1</string>
+    <string name="kidRemoveTitle">Remove kid?</string>
+    <string name="kidRemoveMessage">Remove %1$s? You\'ll need to scan its QR code again to reconnect.</string>
+    <string name="kidPermanentBadge">🔗 Permanent link</string>
+    <string name="kidNotSaved">Not named yet — tap Name to keep it permanently</string>
+    <string name="kidAdvertisedName">Device: %1$s</string>
+    <string name="kidLastSeenAt">Last seen at %1$s</string>
+    <string name="kidAddedAt">Added %1$s</string>
+    <string name="kidDefaultBadge">★ Default — used by Quick Reconnect</string>
+    <string name="kidSetDefault">Set as default kid</string>
+    <string name="kidDefaultSet">Default kid, tap to clear</string>
+    <string name="kidDefaultSetToast">Set as default kid</string>
+    <string name="kidDefaultCleared">Default kid cleared</string>
+    <string name="kidSaved">Saved</string>
+    <string name="kidRemoved">Removed</string>
+    <string name="credential_repair_badge">⚠ Secure credential unavailable — re-pair required</string>
+    <string name="credential_storage_badge">⚠ Secure storage unavailable — restart this phone, then re-pair</string>
+    <string name="credential_attention_title">Pairing needs attention</string>
+    <string name="credential_repair_message">This phone can no longer decrypt the saved pairing credential. Scan the child device’s QR code again to restore the secure link.</string>
+    <string name="credential_storage_message">Android secure storage could not protect the pairing credential. Restart this phone, then scan the child device’s QR code again. Existing credentials were not saved as plaintext.</string>
+    <string name="credential_secure_storage_failed">Couldn’t protect the pairing credential. Restart this phone and scan again.</string>
+    <string name="scan_secure_storage_retry">Secure storage unavailable — restart this phone, then scan again</string>
+    <string name="childDevice">Child Device</string>
+    <string name="serviceTitle">Service:</string>
+    <string name="loading">Loading...</string>
+    <string name="stopped">Stopped</string>
+    <string name="streaming">Streaming...</string>
+    <string name="waitingForParent">Waiting for Parent...</string>
+    <string name="parentDevice">Parent Device</string>
+    <string name="selectChildDevice">Select Child Device:</string>
+    <string name="status">Status:</string>
+    <string name="connectedTo">Connected To:</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="listening">Listening...</string>
+    <string name="listeningAudioOnly">Listening (audio only)</string>
+    <string name="listeningVideoOnly">Listening (video only)</string>
+    <string name="addressTitle">Addresses:</string>
+    <string name="webConsoleTitle">Browser console:</string>
+    <string name="portTitle">Port:</string>
+    <string name="cameraPreview">Camera preview</string>
+    <!-- #304: accessibility content descriptions for TalkBack (sliders + audio meter). -->
+    <string name="volumeMeterDesc">Live audio level from the child</string>
+    <string name="motionThresholdDesc">Motion detection sensitivity</string>
+    <string name="captureGainDesc">Microphone capture gain</string>
+    <string name="playbackGainDesc">Playback gain</string>
+    <string name="audio_calibration_capture_gain">Capture gain: %1$.2f×</string>
+    <string name="audio_calibration_playback_gain">Playback gain: %1$.2f×</string>
+    <string name="refreshSnapshot">Refresh snapshot</string>
+    <!-- #288: save snapshot to gallery. -->
+    <string name="saveSnapshot">Save snapshot to gallery</string>
+    <string name="saveSnapshotOk">Snapshot saved to your gallery</string>
+    <string name="saveSnapshotFailed">Couldn\'t save the snapshot</string>
+    <string name="saveSnapshotNone">No snapshot yet — turn the camera on first</string>
+    <string name="saveSnapshotPermission">Storage permission needed to save — grant it and tap again</string>
+    <!-- #370: fullscreen save action (full-resolution). -->
+    <string name="fullscreenSave">💾 Save</string>
+    <string name="cameraTitle">Camera</string>
+    <string name="turnCameraOn">Turn camera ON</string>
+    <string name="turnCameraOff">Audio-only (save battery)</string>
+    <string name="cameraStatusOn">Camera streaming</string>
+    <string name="cameraStatusOff">Audio-only mode — camera off (low power)</string>
+    <string name="cameraStatusStarting">Camera starting…</string>
+    <string name="notConnected">Not connected to any network</string>
+    <string name="update_available_title">Update available</string>
+    <string name="update_available_body">Child Monitor %1$s is available. Tap to view the release.</string>
+    <string name="insecure_connection_warning">Insecure connection: this child has no encryption pin, so audio snapshots and talkback are unencrypted on the network. Re-pair by scanning the child\'s QR code to secure it.</string>
+    <string name="talkback_refused_repair">Talkback needs encryption: this child was paired securely but its encryption pin is missing. Re-pair by scanning the child\'s QR code to restore talkback.</string>
+    <string name="session_repair_required_short">Re-pair required — open the app and scan the child QR</string>
+    <string name="session_repair_required">Session access was revoked. Re-pair by scanning the child device\'s QR code.</string>
+    <string name="enterAddressInstructions">Enter the IP Address and port of a child and click Connect</string>
+    <string name="connect">Connect</string>
+    <string name="exampleAddress">192.168.1.2</string>
+    <string name="examplePort">10000</string>
+    <string name="invalidPort">Either no port was entered or it is invalid</string>
+    <string name="invalidAddress">The address field needs to be filled out</string>
+    <string name="discoverChild">Discover Child on Network</string>
+    <string name="discoverChildDescription">Select child from a list of discovered children on the network</string>
+    <string name="enterChildAddress">Select Child by Address</string>
+    <string name="enterChildAddressDescription">Enter the address and port of the child</string>
+    <string name="muteAlerts">Mute Alert Sounds</string>
+    <string name="persistentAlarm">Loud alarm until acknowledged (on disconnect)</string>
+    <string name="connAlertTitle">Child device disconnected</string>
+    <string name="connAlertBody">Lost connection to the child. Tap to reconnect.</string>
+    <string name="childBatteryChannel">Child battery</string>
+    <string name="childBatteryTitle">Child device battery low</string>
+    <string name="childBatteryBody">The camera phone is at %1$d%% — plug it in so it doesn\'t die.</string>
+
+    <!-- Baby Link Simplified UI -->
+    <string name="reconnect">RECONNECT</string>
+    <string name="quickReconnect">Quick Reconnect</string>
+
+    <!-- Camera and Talk-back -->
+    <string name="tapForFullscreen">Tap for fullscreen</string>
+    <string name="pipButton">⊞ Pop out</string>
+    <string name="pipButtonDescription">Watch in a floating window while using other apps</string>
+    <string name="cameraOn">Camera ON</string>
+    <string name="cameraOff">Camera OFF</string>
+    <string name="holdToTalk">HOLD TO TALK</string>
+    <string name="talkBackHint">Hold the button to speak to the child device</string>
+
+    <!-- #338 (part of #284): audio replay -->
+    <string name="replayAudio">Replay last 30s</string>
+    <string name="replayPlaying">Replaying…</string>
+    <string name="replayNothing">Nothing recent to replay</string>
+    <string name="replayFailed">Replay failed</string>
+    <string name="replayUnavailable">Replay unavailable — not connected</string>
+
+    <!-- #338: parent-side snapshot replay scrubber -->
+    <string name="replayLive">● Live</string>
+    <string name="replayScrubDesc">Scrub through recent snapshot frames</string>
+    <string name="replayScrubReady">Drag to scrub recent frames</string>
+    <string name="talking">TALKING...</string>
+    <string name="autoStartChild">Auto-start as child device on boot</string>
+    <string name="autoStartParent">Auto-start as parent device on boot (reconnects to last child)</string>
+    <string name="scanChildQr">Scan Child\'s QR Code</string>
+    <string name="scanChildQrDescription">Fastest pairing. Point the camera at the QR shown by the child device — no IP typing.</string>
+    <string name="showPairingQr">Show pairing QR</string>
+    <string name="adaptiveVideoRefresh">Adaptive video refresh</string>
+    <!-- #325: snapshot cadence selector (sets the child's encode rate). -->
+    <string name="snapshotCadenceLabel">Snapshot rate</string>
+    <string name="cadenceEco">Eco</string>
+    <string name="cadenceBalanced">Balanced</string>
+    <string name="cadenceNearLive">Near-live</string>
+    <string name="cadenceAuto">Auto</string>
+    <string name="cadenceFailed">Couldn\'t change snapshot rate</string>
+    <string name="motionDetection">Motion detection</string>
+    <string name="motionDetectionOff">Motion detection off</string>
+
+    <!-- New control center and maintenance UI -->
+    <string name="toolsMode">Tools</string>
+    <string name="suppressToasts">Suppress pop-up messages</string>
+    <!-- #357: advertised Settings screen with granular per-effect alert toggles -->
+    <string name="settingsTitle">Settings</string>
+    <string name="settingsButton">Settings</string>
+    <string name="settingsAlertEffectsHeader">Disconnect alert</string>
+    <string name="settingsAlertEffectsDesc">How you\'re alerted if the link to the child drops. Turn on any combination.</string>
+    <string name="settingAlertSound">Sound</string>
+    <string name="settingAlertVibration">Vibration</string>
+    <string name="settingAlertScreenFlash">Screen flash</string>
+    <string name="settingAlertTorch">Camera torch (flashlight)</string>
+    <!-- Reorganized Settings sections -->
+    <string name="settingsAlertDeliveryHeader">Alert delivery</string>
+    <string name="settingsAlertDeliveryDesc">Whether and how insistently alerts reach you.</string>
+    <string name="settingsDisplayHeader">Display &amp; accessibility</string>
+    <string name="settingsPrivacySecurityHeader">Privacy &amp; security</string>
+    <!-- #366: friendly privacy screen -->
+    <string name="privacyScreenTitle">Privacy &amp; security</string>
+    <string name="privacyScreenSubtitle">What this app does — and doesn\'t do — with your data.</string>
+    <string name="privacyScreenTechnicalDetails">Technical details</string>
+    <!-- #310: encrypted backup/restore -->
+    <string name="backupTitle">Backup &amp; restore</string>
+    <string name="backupExplanation">Save an encrypted backup of your settings and paired children, so reinstalling or moving to a new phone doesn\'t lose them. The file is protected by a passphrase — keep it safe; without it the backup cannot be opened.</string>
+    <string name="backupPassphraseHint">Backup passphrase</string>
+    <string name="backupCreate">Create backup</string>
+    <string name="backupRestore">Restore backup</string>
+    <string name="backupOpen">Backup &amp; restore</string>
+    <!-- MIN_PASSPHRASE is a fixed 12, so this message can never receive a singular count. -->
+    <string name="backupPassphraseTooShort" tools:ignore="PluralsCandidate">Choose a passphrase of at least %1$d characters.</string>
+    <string name="backupPassphraseNeeded">Enter the backup\'s passphrase first.</string>
+    <string name="backupRestoreWarning">Restoring replaces your current settings and paired children with the backup\'s. Restart the app afterwards. Continue?</string>
+    <string name="backupWorking">Working… this can take a few seconds.</string>
+    <string name="backupCreated">Backup created.</string>
+    <plurals name="backupRestored">
+        <item quantity="one">Restored %1$d setting. Restart the app to apply.</item>
+        <item quantity="other">Restored %1$d settings. Restart the app to apply.</item>
+    </plurals>
+    <string name="backupFailed">Backup failed. Please try again.</string>
+    <string name="backupWrongPassphrase">Wrong passphrase, or the backup is corrupted.</string>
+    <string name="backupNotABackup">That file isn\'t a valid Child Monitor backup.</string>
+    <string name="backupNoFilePicker">No file app available to pick a location.</string>
+    <string name="backupInterrupted">Backup was interrupted — please try again.</string>
+    <!-- #311/#312: parent in-app remote controls for the connected child (night light + soother) -->
+    <string name="childControlsTitle">Night light &amp; sound</string>
+    <string name="childControlsOpen">Night light &amp; sound</string>
+    <string name="childControlsNightLight">Night light</string>
+    <string name="childControlsSoother">Soother (sound)</string>
+    <string name="childControlsBrightness">Brightness</string>
+    <string name="childControlsVolume">Volume</string>
+    <string name="childControlsNightTimer">Night-light timer · turns the light off</string>
+    <string name="childControlsSoundTimer">Sound timer · stops playback</string>
+    <string name="childControlsFailed">Couldn\'t reach the child device.</string>
+    <string name="childControlsNeedConnection">Connect to the child first.</string>
+    <string name="childControlsUnknown">…</string>
+    <string name="childControlsNightOn">On · %1$s</string>
+    <string name="childControlsNightOff">Off</string>
+    <string name="childControlsSootherOn">Playing · %1$s</string>
+    <string name="childControlsSootherOff">Stopped</string>
+    <!-- Night-light colour presets -->
+    <string name="childControlsColorAmber">Amber</string>
+    <string name="childControlsColorWarm">Warm</string>
+    <string name="childControlsColorRed">Red</string>
+    <string name="childControlsColorOff">Off</string>
+    <!-- Soother noise presets -->
+    <string name="childControlsNoiseWhite">White</string>
+    <string name="childControlsNoisePink">Pink</string>
+    <string name="childControlsNoiseBrown">Brown</string>
+    <!-- Soother lullaby presets -->
+    <string name="childControlsTuneTwinkle">Twinkle</string>
+    <string name="childControlsTuneFrere">Frère</string>
+    <string name="childControlsTuneMary">Mary</string>
+    <string name="childControlsTuneBrahms">Brahms lullaby</string>
+    <string name="childControlsBrahmsAttribution">Sung in English by Elsie Baker · Victor 17181 (1912) · public domain</string>
+    <!-- Independent custom timers (#490). The screen locks after the last active feature ends. -->
+    <string name="childControlsTimerNone">No timer set</string>
+    <string name="childControlsTimerFor">For…</string>
+    <string name="childControlsTimerUntil">Until…</string>
+    <string name="childControlsTimerClear">Clear</string>
+    <string name="childControlsTimerDurationTitle">Set duration</string>
+    <string name="childControlsTimerMinutesHint">Duration in minutes</string>
+    <string name="childControlsTimerMinutesError">Enter a value between 1 and 1,440.</string>
+    <string name="childControlsTimerSet">Set</string>
+    <plurals name="childControlsTimerWhenStarted">
+        <item quantity="one">For %1$d minute when started</item>
+        <item quantity="other">For %1$d minutes when started</item>
+    </plurals>
+    <plurals name="childControlsTimerStatus">
+        <item quantity="one">Off at %1$s · %2$d minute left</item>
+        <item quantity="other">Off at %1$s · %2$d minutes left</item>
+    </plurals>
+    <string name="childControlsStop">Stop</string>
+    <!-- On-screen card in the live parent session linking to the child-control screens -->
+    <string name="childControlsSectionTitle">Child controls</string>
+    <!-- Child alerts &amp; webhooks screen (#291 / #308) -->
+    <string name="childAlertsTitle">Alerts &amp; webhooks</string>
+    <string name="childAlertsOpen">Alerts &amp; webhooks</string>
+    <string name="childAlertsAlertsHeader">Alerts</string>
+    <string name="childAlertsCry">Cry alerts</string>
+    <string name="childAlertsCough">Cough alerts</string>
+    <string name="childAlertsMotion">Motion alerts</string>
+    <string name="childAlertsQuiet">Quiet hours</string>
+    <string name="childAlertsQuietStart">Start %1$s</string>
+    <string name="childAlertsQuietEnd">End %1$s</string>
+    <string name="childAlertsFloor">Quiet-hours escalation floor</string>
+    <string name="childAlertsHooksHeader">Event hooks (webhooks)</string>
+    <string name="childAlertsHooksEnabled">Webhooks enabled</string>
+    <string name="childAlertsWebhookHint">https://… webhook URL</string>
+    <string name="childAlertsSaveUrl">Save URL</string>
+    <string name="childAlertsClearUrl">Clear URL</string>
+    <string name="childAlertsLanOnly">LAN only</string>
+    <string name="childAlertsSendTest">Send test event</string>
+    <string name="childAlertsBadUrl">Enter a valid http(s) URL.</string>
+    <string name="childAlertsTestSent">Test event sent.</string>
+    <string name="childAlertsTestFailed">Test failed — enable webhooks and save a URL first.</string>
+    <string name="childAlertsToggleOn">%1$s: On</string>
+    <string name="childAlertsToggleOff">%1$s: Off</string>
+    <string name="childAlertsOn">on</string>
+    <string name="childAlertsOff">off</string>
+    <string name="childAlertsSummary">Cry %1$s · Cough %2$s · Motion %3$s</string>
+    <string name="remote_event_child_fallback">your child device</string>
+    <string name="remote_sound_alert_title">Cry or cough detected</string>
+    <string name="remote_sound_alert_body">Check %1$s — a cry or cough was detected.</string>
+    <string name="remote_motion_alert_title">Motion detected</string>
+    <string name="remote_motion_alert_body">Check %1$s — movement was detected.</string>
+    <string name="childAlertsQuietSummary">Quiet %1$s–%2$s</string>
+    <string name="childAlertsQuietActive"> (active now)</string>
+    <string name="childAlertsQuietOff">Quiet hours off</string>
+    <string name="childAlertsHooksOn">On · %1$s</string>
+    <string name="childAlertsHooksOff">Off</string>
+    <string name="childAlertsLanShort">LAN only</string>
+    <string name="childAlertsWanShort">any host</string>
+    <string name="childAlertsMqttHeader">MQTT / Home Assistant</string>
+    <string name="childAlertsMqttEnabled">MQTT bridge enabled</string>
+    <string name="childAlertsMqttServer">Broker URI (ssl://host:8883)</string>
+    <string name="childAlertsMqttUsername">Broker username (optional)</string>
+    <string name="childAlertsMqttPassword">Broker password (leave blank to keep)</string>
+    <string name="childAlertsMqttBaseTopic">Base topic (for example child-monitor/nursery)</string>
+    <string name="childAlertsMqttTemperatureTopic">Temperature input topic (optional)</string>
+    <string name="childAlertsMqttHumidityTopic">Humidity input topic (optional)</string>
+    <string name="childAlertsMqttTemperatureMin">Minimum temperature °C</string>
+    <string name="childAlertsMqttTemperatureMax">Maximum temperature °C</string>
+    <string name="childAlertsMqttHumidityMin">Minimum humidity %</string>
+    <string name="childAlertsMqttHumidityMax">Maximum humidity %</string>
+    <string name="childAlertsMqttSave">Save settings</string>
+    <string name="childAlertsMqttClearPassword">Clear password</string>
+    <string name="childAlertsMqttTlsHelp">Credentials require an ssl:// broker. Anonymous tcp:// is supported only for trusted local networks.</string>
+    <string name="childAlertsMqttConnected">Connected · Home Assistant discovery published</string>
+    <string name="childAlertsMqttDisconnected">Enabled · broker disconnected</string>
+    <string name="childAlertsMqttOff">Off</string>
+    <string name="childPairingShowParent">Show this to the parent device</string>
+    <string name="childPairingInstructions">The parent will scan this QR with its camera. No IP typing required — even if this device’s network changes later.</string>
+    <string name="childPairingQrDescription">QR code containing secure pairing details</string>
+    <string name="childPairingRemembered">The parent app remembers the device ID after the first scan. If this device moves to a new Wi-Fi network, the parent will rediscover it automatically — no rescanning needed.</string>
+    <string name="childPairingDevice">Device: %1$s</string>
+    <string name="childPairingId">ID: %1$s</string>
+    <string name="childPairingPreparing">Preparing secure pairing… Keep this screen open.</string>
+    <string name="childPairingWaiting">Preparing secure pairing… Waiting for network and encrypted listeners.</string>
+    <string name="childPairingReady">Secure pairing ready at %1$s:%2$d</string>
+    <string name="childPairingQrFailed">Couldn’t create the pairing QR code. Trying again…</string>
+    <string name="parentScanInstructions">On the child device, open Pair → Show QR. Point this camera at it.</string>
+    <string name="valueUnavailable">—</string>
+    <string name="valueNotAvailable">Not available</string>
+    <string name="pairingStartChildRequired">Start Child Mode on this device to use pairing.</string>
+    <string name="pairingLocalServiceExplanation">Pairing is provided by the local child monitoring service. Tap Open Child Mode below to start it.</string>
+    <string name="pairingRequestingChallenge">Requesting pairing challenge…</string>
+    <string name="pairingChallengeActive">Challenge active</string>
+    <string name="pairingNoPayload">No payload returned</string>
+    <string name="pairingApiUnavailableStartChild">Pairing unavailable. Start Child Mode first.</string>
+    <string name="pairingNoPairedDevices">No paired devices yet.</string>
+    <string name="pairingDeviceDetails">ID: %1$s\nPaired: %2$s</string>
+    <string name="pairingRevoke">Revoke</string>
+    <string name="pairingDeviceRevoked">Device revoked</string>
+    <string name="pairingRevokeFailed">Couldn’t revoke device</string>
+    <string name="pairingApiUnavailable">Pairing unavailable</string>
+    <string name="pairingActivateEndpoints">Start Child Mode to activate local pairing.</string>
+    <string name="tracker_example_duration" translatable="false">15</string>
+    <string name="tracker_example_volume" translatable="false">90</string>
+    <string name="tracker_example_weight" translatable="false">5.2</string>
+    <string name="tracker_example_length" translatable="false">58.3</string>
+    <string name="tracker_example_head" translatable="false">41</string>
+    <string name="tracker_example_temperature" translatable="false">38.2</string>
+    <string name="tracker_example_med_weight" translatable="false">8.5</string>
+    <string name="tracker_example_strength" translatable="false">120</string>
+    <string name="tracker_example_room_temperature" translatable="false">18.5</string>
+    <string name="defaultMonitorPort" translatable="false">10000</string>
+    <string name="diagnosticsRunning">Running</string>
+    <string name="diagnosticsIdle">Idle</string>
+    <string name="diagnosticsUnrestricted">Unrestricted</string>
+    <string name="diagnosticsRestricted">Restricted</string>
+    <string name="diagnosticsServiceSummary">Child session: %1$s\nParent session: %2$s\nBattery mode: %3$s</string>
+    <plurals name="diagnosticsErrors"><item quantity="one">%d error</item><item quantity="other">%d errors</item></plurals>
+    <plurals name="diagnosticsWarnings"><item quantity="one">%d warning</item><item quantity="other">%d warnings</item></plurals>
+    <string name="diagnosticsConnectionSummary">Connection events: %1$d\nDisconnect-style events: %2$d</string>
+    <string name="diagnosticsConnectionWithLatest">%1$s\nLatest error: %2$s %3$s</string>
+    <string name="diagnosticsNoMajorIssues">No major issues in recent logs.</string>
+    <string name="diagnosticsLogEntry">%1$s [%2$s] [%3$s]\n%4$s</string>
+    <string name="setupCorePermissionStatus">Core permissions (microphone and camera): %1$s</string>
+    <string name="setupMulticastPermissionStatus">Multicast permission: %1$s</string>
+    <string name="setupNotificationPermissionStatus">Notification permission: %1$s</string>
+    <string name="setupBatteryStatus">Battery unrestricted: %1$s</string>
+    <string name="setupAutoStartStatus">Auto-start child on boot: %1$s</string>
+    <string name="setupStatusOk">OK</string>
+    <string name="setupStatusMissing">Missing</string>
+    <string name="serviceNotReady">Service not ready yet</string>
+    <plurals name="streamingParents"><item quantity="one">Streaming (1 parent)</item><item quantity="other">Streaming (%d parents)</item></plurals>
+    <string name="portNumber" translatable="false">%1$d</string>
+    <string name="tracker_allergen_blocked_suffix">  ⚠ %1$s</string>
+    <string name="tracker_allergen_status_line">%1$s — %2$s%3$s</string>
+    <string name="tracker_allergen_status_not_started">Not started</string>
+    <string name="tracker_allergen_status_introduced">Introduced</string>
+    <string name="tracker_allergen_status_established">Established</string>
+    <string name="tracker_allergen_status_lapsing">Lapsing</string>
+    <string name="tracker_allergen_status_avoid">Avoid</string>
+    <string name="tracker_two_line_finding">%1$s\n%2$s</string>
+    <string name="tracker_timeline_row">%1$s · %2$s</string>
+    <string name="fullscreenJumpedFrom">Jumped from %1$s at %2$s</string>
+    <string name="privacyFactHeading">%1$s  %2$s</string>
+    <string name="logViewerFileRange">Oldest: %1$s\nNewest: %2$s\n</string>
+    <string name="logViewerHeader">=== Diagnostic Logs Viewer ===\nTotal log files: %1$d\n%2$sShowing last 1000 lines of the most recent log\n========================================\n\n</string>
+    <string name="logViewerContent">%1$s%2$s</string>
+    <string name="quickReconnectTo">Connect to: %1$s</string>
+    <plurals name="quickReconnectSavedDevices">
+        <item quantity="one">Connect to: %1$s\n(1 device saved)</item>
+        <item quantity="other">Connect to: %1$s\n(%2$d devices saved)</item>
+    </plurals>
+    <string name="invalidIpAddressFormat">Invalid IP address format</string>
+    <string name="motionConfidence">Motion confidence: %1$d%% (threshold %2$d%%)</string>
+    <string name="motionDetectedPercent">Motion detected (%1$d%%)</string>
+    <string name="videoModeAdaptive">Adaptive</string>
+    <string name="videoModeFixed">Fixed</string>
+    <string name="linkExcellent">Excellent link</string>
+    <string name="linkGood">Good link</string>
+    <string name="linkFair">Fair link</string>
+    <string name="linkPoor">Poor link</string>
+    <string name="linkWarmingUp">Link warming up</string>
+    <string name="videoPolicyAudioFirst"> · audio-first fallback active</string>
+    <string name="videoPolicyDelay"> · %1$dms delay</string>
+    <string name="videoPolicyNearLive"> · near-live</string>
+    <string name="videoPolicySummary">%1$s video · %2$dms · %3$s%4$s%5$s%6$s</string>
+    <string name="cancel">Cancel</string>
+    <string name="searchingForChildDevices">Searching for child devices…</string>
+    <string name="reconnectionCancelled">Reconnection cancelled</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="tryingEndpoint">Trying %1$s…</string>
+    <string name="cancelAttempt">Cancel (%1$d/%2$d)</string>
+    <string name="searching">Searching…</string>
+    <string name="discoveringChildDevices">Discovering child devices…</string>
+    <string name="savedAddressesFailed">Saved addresses failed — searching for devices…</string>
+    <string name="foundChildConnecting">Found %1$s, connecting…</string>
+    <string name="noMatchingChildRetrying">No matching child found, retrying…</string>
+    <string name="discoveryFailedRetrying">Discovery failed, retrying…</string>
+    <string name="listeningExcellent">Listening (Excellent)</string>
+    <string name="listeningGood">Listening (Good)</string>
+    <string name="listeningFairAudioPaused">Listening (Fair — video paused for audio)</string>
+    <string name="listeningFairVideoSlowed">Listening (Fair — video slowed)</string>
+    <string name="listeningPoorAudioPriority">Listening (Poor — audio priority)</string>
+    <string name="listeningWithChildBattery">%1$s · child %2$s%3$d%%</string>
+    <string name="chargingGlyph" translatable="false">⚡</string>
+    <string name="localDisplayButton">Show on a local TV or tablet</string>
+    <string name="localDisplayTitle">Local TV or tablet</string>
+    <string name="localDisplayDescription">Send silent camera video to a DLNA television, or share a private viewer link with a browser on the same Wi-Fi. Audio stays on this parent phone so you can still hear the child.</string>
+    <string name="localDisplayPreparing">Preparing private local-display access…</string>
+    <string name="localDisplayChoose">Choose a DLNA display or share the browser link. Private access is created only when you start an output.</string>
+    <string name="localDisplayReady">Private display access is ready until %1$s.</string>
+    <string name="localDisplayUnavailable">Couldn’t create local-display access. Keep both phones on the same Wi-Fi and reconnect the parent.</string>
+    <string name="localDisplayDiscover">Find DLNA displays</string>
+    <string name="localDisplayShare">Share private browser link…</string>
+    <string name="localDisplayStop">Stop local display and revoke access</string>
+    <string name="localDisplaySearching">Searching the local network for DLNA displays…</string>
+    <plurals name="localDisplaysFound"><item quantity="one">Found 1 local display.</item><item quantity="other">Found %d local displays.</item></plurals>
+    <string name="localDisplayNoneFound">No DLNA display answered. You can still use the private browser link on a TV or tablet.</string>
+    <string name="localDisplayModeTitle">Show on %1$s</string>
+    <string-array name="localDisplayModes"><item>Live MJPEG stream</item><item>Compatible snapshot slideshow</item></string-array>
+    <string name="localDisplayConnecting">Connecting to %1$s…</string>
+    <string name="localDisplayPlaying">Showing silent video on %1$s. Audio remains on this phone.</string>
+    <string name="localDisplayFailed">%1$s could not play that format. Try the compatible snapshot slideshow.</string>
+    <string name="localDisplaySlideshowFailed">%1$s stopped accepting snapshots.</string>
+    <string name="localDisplayStopped">Local display stopped and its private access was revoked.</string>
+    <string name="localDisplayShareChooser">Open local Child Monitor viewer</string>
+    <string name="localDisplayDeviceButton">%1$s — choose display mode</string>
+    <string name="localDisplayUnnamed">Unnamed local display</string>
+    <string name="localDisplayViewerTitle">Child Monitor local display</string>
+    <string name="localDisplayViewerCaption">Local video only · audio stays on the parent phone</string>
+    <string name="remote_environment_alert_title">Room sensor alert</string>
+    <string name="remote_environment_alert_body">%1$s: %2$s.</string>
+    <string name="remote_environment_temperature_low">temperature is too low</string>
+    <string name="remote_environment_temperature_high">temperature is too high</string>
+    <string name="remote_environment_humidity_low">humidity is too low</string>
+    <string name="remote_environment_humidity_high">humidity is too high</string>
+    <string name="remote_environment_out_of_range">room reading is outside the configured range</string>
+    <string name="muteAlertsHint">Silences alert sounds. Vibration, screen flash and torch still fire.</string>
+    <!-- Startup / auto-start (#359/#379) -->
+    <string name="settingsStartupHeader">Startup</string>
+    <string name="settingsStartupDesc">Resume monitoring automatically after the phone restarts.</string>
+    <string name="settingAutoStartChild">Auto-start as child on boot</string>
+    <string name="settingAutoStartChildHint">After a reboot, this device starts streaming as the child again.</string>
+    <string name="settingAutoStartParent">Auto-start as parent on boot</string>
+    <string name="settingAutoStartParentHint">After a reboot, reconnect to your default/most-recent child automatically.</string>
+    <string name="settingTimerScreenOffEnable">Allow bedtime timer to turn screen off</string>
+    <string name="settingTimerScreenOffEnabled">Bedtime screen-off enabled</string>
+    <string name="settingTimerScreenOffHint">Lets the night-light and sound timer lock this child device when it finishes. Child Monitor cannot unlock the phone or change its PIN.</string>
+    <string name="screenOffAdminDescription">Turns the child device screen off when a bedtime timer finishes.</string>
+    <string name="screenOffAdminExplanation">Allow Child Monitor to lock the screen when the night-light and sound timer finishes.</string>
+    <string name="autoStartOverlayNeeded">Enable \'Display over other apps\' so the monitor can start on boot.</string>
+    <string name="autoStartMicNeeded">Microphone permission is required for auto-start.</string>
+    <string name="autoStartPermsNeeded">Microphone and camera permissions are required for child auto-start.</string>
+    <string name="autoStartNeedChild">Connect to a child device at least once before enabling parent auto-start.</string>
+    <!-- Detection section: night sensitivity (#285) -->
+    <string name="settingsDetectionHeader">Detection</string>
+    <string name="settingsDetectionDesc">How sensitively sleep tracking flags noise and movement.</string>
+    <string name="settingNightSensitivityLabel">Night sensitivity</string>
+    <string name="settingNightSensitivityHint">High flags quieter sounds and smaller movements as awake; Low only loud sounds and large movements.</string>
+    <string name="settingSensLow">Low</string>
+    <string name="settingSensMedium">Medium</string>
+    <string name="settingSensHigh">High</string>
+    <string name="settingAdaptiveVideo">Adaptive video refresh</string>
+    <string name="settingAdaptiveVideoHint">Speeds up snapshots when the link is good and slows them to save battery when it isn\'t.</string>
+    <string name="settingMotionDetection">Motion detection</string>
+    <string name="settingMotionDetectionHint">Highlights movement in the live camera feed on the parent device.</string>
+    <string name="settingMotionThreshold">Motion threshold: %1$d%%</string>
+    <string name="settingMotionThresholdHint">Higher = only larger movements are flagged; lower = more sensitive.</string>
+    <!-- #302: parent blackout / monitor mode -->
+    <string name="blackoutButton">Monitor mode (dark screen)</string>
+    <string name="blackoutHint">Tap to exit · audio &amp; alerts stay on</string>
+    <string name="refresh">Refresh</string>
+    <string name="openNightTimeline">Night Timeline</string>
+    <string name="nightTimelineTitle">Night Timeline</string>
+    <string name="nightTimelineEmpty">No data yet. Connect to the child device and the timeline fills in minute by minute through the night.</string>
+    <string name="nightTimelineLegend">Band: green = asleep, amber = movement, red = noisy, gray = no signal. Middle graph = relative loudness (min–peak fill, white mean line, dashed line = awake threshold). Bottom bars = movement.</string>
+    <string name="nightTimelineSensitivity">Sensitivity: %1$s</string>
+    <!-- #314: multi-night sleep trends. -->
+    <string name="sleepTrendsTitle">Sleep trends</string>
+    <string name="sleepTrendsLegend">One bar per night: green = asleep, amber = movement, red = noisy. The number above each bar is how many times the baby woke that night.</string>
+    <string name="sleepTrendsEmpty">No nights recorded yet. After a few nights of monitoring, each night appears here as a bar.</string>
+    <!-- %1$d = night count, %2$s = avg time asleep, %3$s = avg wakings -->
+    <plurals name="sleepTrendsSummary">
+        <item quantity="one">%1$d night · avg asleep %2$s · avg wakings %3$s</item>
+        <item quantity="other">%1$d nights · avg asleep %2$s · avg wakings %3$s</item>
+    </plurals>
+    <!-- #309: sleep/event log export. -->
+    <string name="nightTimelineExport">Export sleep log…</string>
+    <string name="nightTimelineExportCsv">CSV (spreadsheet)</string>
+    <string name="nightTimelineExportJson">JSON (full, with events)</string>
+    <string name="nightTimelineExportSubject">Child Monitor — sleep &amp; event log</string>
+    <string name="nightTimelineExportShareTitle">Share sleep log</string>
+    <string name="nightTimelineExportEmpty">No sleep data recorded yet to export.</string>
+    <string name="nightTimelineExportFailed">Couldn\'t create the export file.</string>
+    <string name="sessionStatusChip">Session Status</string>
+    <string name="openCurrentSession">Open Current Session</string>
+    <string name="stopCurrentSession">Stop Current Session</string>
+    <string name="noActiveSession">No active session</string>
+    <string name="noActiveSessionHint">Start Child Mode or Parent Mode below.</string>
+    <string name="parentSessionActive">Parent mode active</string>
+    <string name="childSessionActive">Child mode active</string>
+    <string name="bothSessionsActive">Parent + Child active</string>
+    <string name="parentSessionHint">Audio is playing from the child device.</string>
+    <string name="childSessionHint">Child device is streaming to parent devices.</string>
+    <string name="bothSessionsHint">Two sessions are running. Stop one or switch modes.</string>
+    <string name="openParentSession">Open Parent Session</string>
+    <string name="openChildSession">Open Child Session</string>
+    <string name="openEitherSession">Open Session</string>
+    <string name="stopParentSession">Stop Parent Session</string>
+    <string name="stopChildSession">Stop Child Session</string>
+    <string name="stopAllSessions">Stop All Sessions</string>
+    <string name="switchingToChild">Switching from parent to child mode…</string>
+    <string name="switchingToParent">Switching from child to parent mode…</string>
+    <string name="parentStopped">Parent session stopped</string>
+    <string name="childStopped">Child session stopped</string>
+    <string name="allSessionsStopped">All sessions stopped</string>
+    <string name="openDashboard">Open Dashboard</string>
+    <string name="openSetupWizard">Open Setup Wizard</string>
+    <string name="openDiagnostics">Open Diagnostics</string>
+    <string name="openTimeline">Open Timeline</string>
+    <string name="openPairing">Open Pairing</string>
+    <string name="openAudioCalibration">Open Audio Calibration</string>
+    <string name="openDiagnosticLogs">Open Diagnostic Logs</string>
+
+    <string name="dashboardTitle">Control Dashboard</string>
+    <string name="dashboardOverviewChip">Session Overview</string>
+
+    <string name="setupWizardTitle">Setup Wizard</string>
+    <string name="setupWizardSubtitle">Verify permissions and reliability settings before long sessions.</string>
+    <string name="requestCorePermissions">Request Mic + Camera Permissions</string>
+    <string name="requestMulticastPermission">Request Multicast Permission</string>
+    <string name="requestNotificationPermission">Request Notification Permission</string>
+    <string name="openBatterySettings">Open Battery Settings</string>
+    <string name="toggleAutoStart">Toggle Auto-start on Boot</string>
+    <string name="markSetupComplete">Mark Setup Complete</string>
+
+    <string name="pairingTitle">Pairing Console</string>
+    <string name="pairingSubtitle">Manage trusted parent devices for local-only pairing.</string>
+    <string name="pairingPinLabel">Current PIN</string>
+    <string name="pairingExpiryLabel">Expires At</string>
+    <string name="pairingPayloadLabel">Pairing Payload</string>
+    <string name="generatePairingCode">Generate Pairing Code</string>
+    <string name="refreshPairedDevices">Refresh Paired Devices</string>
+    <string name="openChildMode">Open Child Mode</string>
+    <string name="pairedDevicesTitle">Paired Devices</string>
+
+    <string name="diagnosticsTitle">Diagnostics</string>
+    <string name="recentIssuesTitle">Recent Issues</string>
+    <string name="refreshDiagnostics">Refresh Diagnostics</string>
+
+    <string name="timelineTitle">Event Timeline</string>
+    <string name="refreshTimeline">Refresh Timeline</string>
+    <string name="filterAll">All</string>
+    <string name="filterConnection">Connection</string>
+    <string name="filterNetwork">Network</string>
+    <string name="filterAudio">Audio</string>
+    <string name="filterSystem">System</string>
+
+
+    <!-- Baby Care Tracker -->
+
+    <string name="audioCalibrationTitle">Audio Calibration</string>
+    <string name="audioCalibrationSubtitle">Tune capture and playback loudness for your devices.</string>
+    <string name="captureGainHint">Child-side microphone gain multiplier. Higher values increase sensitivity.</string>
+    <string name="playbackGainHint">Parent-side speaker gain multiplier. Higher values increase playback loudness.</string>
+    <string name="applyCalibration">Apply Calibration</string>
+    <string name="resetCalibration">Reset to Defaults</string>
+    <string name="previewAlertTone">Preview Alert Tone</string>
+    <string name="widget_listen_now">Tap to listen</string>
+    <string name="widget_parent_actions_label">Child Monitor Actions</string>
+
+    <!-- Baby tracker module -->
+    <string name="tracker_dashboard_title">Baby Tracker</string>
+    <string name="tracker_open">Open Baby Tracker</string>
+    <string name="tracker_saved">Saved</string>
+    <string name="tracker_save">Save</string>
+    <string name="tracker_default_name">Baby</string>
+    <string name="tracker_create_profile_first">Create a baby profile first.</string>
+    <string name="tracker_no_profile">No profile yet. Tap Edit profile to begin.</string>
+    <plurals name="tracker_age_months">
+        <item quantity="one">Age: %1$d month</item>
+        <item quantity="other">Age: %1$d months</item>
+    </plurals>
+    <plurals name="tracker_months_count">
+        <item quantity="one">%1$d month</item>
+        <item quantity="other">%1$d months</item>
+    </plurals>
+    <string name="tracker_age_with_corrected">Age: %1$s (corrected %2$s)</string>
+    <string name="tracker_note_hint">Notes (optional)</string>
+
+    <string name="tracker_btn_feed">Feed</string>
+    <string name="tracker_btn_diaper">Diaper</string>
+    <string name="tracker_btn_sleep">Sleep</string>
+    <string name="tracker_btn_growth">Growth</string>
+    <string name="tracker_btn_med">Fever &amp; Med</string>
+    <string name="tracker_btn_allergen">Allergens</string>
+    <string name="tracker_btn_profile">Edit profile</string>
+
+    <string name="tracker_today_summary">Today (since midnight)</string>
+    <string name="tracker_summary_feeds">Feeds: %1$d (target %2$d-%3$d/day)</string>
+    <!-- FeedingTargets always supplies a multi-value range such as 2–3, never one hour. -->
+    <string name="tracker_summary_interval" tools:ignore="PluralsCandidate">Target interval: %1$d-%2$d hours</string>
+    <string name="tracker_last_feed_ago">Last feed: %1$dh %2$dm ago</string>
+    <string name="tracker_no_feed_logged">No feeds logged yet.</string>
+    <!-- "wet" and "dirty/mixed" are category labels rather than countable nouns. -->
+    <string name="tracker_summary_diapers" tools:ignore="PluralsCandidate">Diapers: %1$d wet · %2$d dirty/mixed</string>
+    <string name="tracker_summary_sleeps">Sleep periods started: %1$d</string>
+
+    <string name="tracker_next_vaccine">Next vaccine</string>
+    <string name="tracker_vaccine_upToDate">You\'re up to date on the schedule.</string>
+    <string name="tracker_vaccine_line">%1$s #%2$d — %3$s (%4$s)</string>
+    <plurals name="tracker_vaccine_overdue">
+        <item quantity="one">%1$d day overdue</item>
+        <item quantity="other">%1$d days overdue</item>
+    </plurals>
+    <string name="tracker_vaccine_due_soon">due soon</string>
+    <string name="tracker_vaccine_scheduled">scheduled</string>
+    <string name="tracker_vaccine_window_passed">window passed — discuss with clinician</string>
+
+    <string name="tracker_guidance_header">Guidance highlights</string>
+    <string name="tracker_guidance_tagline">Primary guidance summaries. Tap an entry screen to see full citations.</string>
+    <string name="tracker_guidance_sids_citation">Back sleep + firm flat surface reduce SIDS risk (AAP 2022, CDC).</string>
+    <string name="tracker_guidance_fever">Under 3 months: any fever ≥ 38 °C is urgent (NICE NG143).</string>
+    <string name="tracker_guidance_peanut">Start peanut from ~6 months; maintain &gt;= 6 g protein/week (LEAP).</string>
+    <string name="tracker_guidance_disclaimer">This is informational and does not replace your clinician.</string>
+
+    <!-- Feed entry -->
+    <string name="tracker_feed_title">Feed</string>
+    <string name="tracker_feed_breast_L">Breast — left</string>
+    <string name="tracker_feed_breast_R">Breast — right</string>
+    <string name="tracker_feed_breast_both">Breast — both</string>
+    <string name="tracker_feed_bottle_ebm">Bottle — expressed</string>
+    <string name="tracker_feed_bottle_formula">Bottle — formula</string>
+    <string name="tracker_feed_solid">Solid food</string>
+    <string name="tracker_duration_min">Duration (minutes)</string>
+    <string name="tracker_volume_ml">Volume (mL, optional)</string>
+    <!-- Both values are clinical ranges whose upper bounds are greater than one. -->
+    <string name="tracker_feed_target_hint" tools:ignore="PluralsCandidate">Target %1$d-%2$d feeds/day at this age · typical bottle %3$d-%4$d mL</string>
+
+    <!-- Diaper -->
+    <string name="tracker_diaper_title">Diaper</string>
+    <string name="tracker_diaper_wet">Wet only</string>
+    <string name="tracker_diaper_dirty">Dirty only</string>
+    <string name="tracker_diaper_mixed">Mixed (wet + dirty)</string>
+    <string name="tracker_diaper_color">Stool colour</string>
+    <string name="tracker_stool_yellow">Yellow / mustard (breastfed)</string>
+    <string name="tracker_stool_tan">Tan / brown (formula)</string>
+    <string name="tracker_stool_green">Green</string>
+    <string name="tracker_stool_meconium">Black tarry (meconium)</string>
+    <string name="tracker_stool_black">Black (after day 5)</string>
+    <string name="tracker_stool_red">Red / blood</string>
+    <string name="tracker_stool_pale">Pale / white / chalky</string>
+
+    <!-- Sleep -->
+    <string name="tracker_sleep_title">Sleep</string>
+    <string name="tracker_sleep_type">Session type</string>
+    <string name="tracker_sleep_nap">Nap</string>
+    <string name="tracker_sleep_night">Night</string>
+    <string name="tracker_sleep_location">Location</string>
+    <string name="tracker_sleep_safety_header">Safer-sleep checklist (AAP / CDC)</string>
+    <string name="tracker_sleep_room_temp">Room temperature (°C, optional)</string>
+    <string name="tracker_sleep_start">Start sleep</string>
+    <string name="tracker_sleep_end_last">End last sleep session</string>
+    <string name="tracker_sleep_started">Sleep session started</string>
+    <string name="tracker_sleep_ended">Sleep session ended</string>
+    <string name="tracker_sleep_no_open">No open sleep session to end.</string>
+    <plurals name="tracker_sleep_safety_missing">
+        <item quantity="one">%1$d safer-sleep check still unmet.</item>
+        <item quantity="other">%1$d safer-sleep checks still unmet.</item>
+    </plurals>
+    <string name="tracker_sleep_location_unsafe">Selected location is flagged as unsafe for routine sleep.</string>
+
+    <!-- Growth -->
+    <string name="tracker_growth_title">Growth</string>
+    <string name="tracker_weight_kg">Weight (kg)</string>
+    <string name="tracker_length_cm">Length / height (cm)</string>
+    <string name="tracker_head_cm">Head circumference (cm)</string>
+    <string name="tracker_growth_compute">Show WHO percentiles</string>
+    <string name="tracker_growth_wfa">Weight-for-age: z = %1$.2f (%2$.0fth pct)</string>
+    <string name="tracker_growth_lfa">Length-for-age: z = %1$.2f (%2$.0fth pct)</string>
+    <string name="tracker_growth_hcfa">Head circumference: z = %1$.2f (%2$.0fth pct)</string>
+    <string name="tracker_growth_hc_flag">Head circumference outside 3rd-97th percentile — mention at next visit.</string>
+    <string name="tracker_growth_enter_at_least_one">Enter weight, length, or head circumference above.</string>
+    <string name="tracker_growth_source_who">Reference: WHO Child Growth Standards (0-5y).</string>
+
+    <!-- Medication -->
+    <string name="tracker_med_title">Fever &amp; Medication</string>
+    <string name="tracker_temp_c">Temperature (°C)</string>
+    <string name="tracker_fever_line">[%1$s] %2$s — %3$s</string>
+    <string name="tracker_med_drug">Medication</string>
+    <string name="tracker_drug_paracetamol">Paracetamol</string>
+    <string name="tracker_drug_ibuprofen">Ibuprofen</string>
+    <string name="tracker_med_weight">Baby weight (kg)</string>
+    <string name="tracker_med_strength">Syrup strength (mg per 5 mL)</string>
+    <string name="tracker_med_recommend">Calculate safe dose</string>
+    <string name="tracker_med_blocked">Dose BLOCKED for safety:</string>
+    <string name="tracker_med_dose_mg">Suggested dose: %1$.0f mg</string>
+    <string name="tracker_med_dose_ml">Volume: %1$.1f mL</string>
+    <plurals name="tracker_med_next_ok_in">
+        <item quantity="one">Earliest next dose in %1$d minute.</item>
+        <item quantity="other">Earliest next dose in %1$d minutes.</item>
+    </plurals>
+    <string name="tracker_med_source">Source: %1$s</string>
+    <string name="tracker_med_need_weight">Enter baby weight first.</string>
+    <string name="tracker_med_record_given">Record as given</string>
+    <string name="tracker_checklist_title">NICE traffic-light check — tick anything you observe</string>
+    <string name="tracker_chk_pale">Pale, mottled, ashen or blue skin, lips or tongue</string>
+    <string name="tracker_chk_unresponsive">Unresponsive, won\'t wake, or won\'t stay awake</string>
+    <string name="tracker_chk_weak_cry">Weak, high-pitched or continuous cry</string>
+    <string name="tracker_chk_grunting">Grunting while breathing</string>
+    <string name="tracker_chk_apnoea">Pauses in breathing (apnoea)</string>
+    <string name="tracker_chk_resp60">Breathing very fast (over 60 breaths/min)</string>
+    <!-- FeverThresholds supplies clinical cutoffs of at least 120 beats/min. -->
+    <string name="tracker_chk_tachy" tools:ignore="PluralsCandidate">Heart racing — over %1$d beats/min for this age</string>
+    <string name="tracker_chk_turgor">Skin pinch goes back slowly (reduced skin turgor)</string>
+    <string name="tracker_chk_rash">Rash that doesn\'t fade when pressed (non-blanching)</string>
+    <string name="tracker_chk_neuro">Stiff neck, light hurts eyes, bulging soft spot, or seizure</string>
+
+    <!-- Allergens -->
+    <string name="tracker_allergen_title">Allergen ladder</string>
+    <string name="tracker_allergen_sub">LEAP + ASCIA: introduce the nine major allergens during the first year and keep them weekly.</string>
+    <string name="tracker_allergen_log_title">Log exposure</string>
+    <string name="tracker_allergen_log_exposure">Log exposure</string>
+    <string name="tracker_allergen_count">Exposures logged: %1$d</string>
+    <!-- #163: NIAID high-risk pre-introduction testing gate -->
+    <string name="tracker_allergen_gate_title">Clinician check needed first</string>
+    <string name="tracker_allergen_gate_override">Proceed anyway (cleared by my clinician)</string>
+    <string name="tracker_allergen_gate_cancel">Not yet</string>
+    <string name="tracker_allergen_gate_badge">Pre-introduction testing recommended</string>
+
+    <!-- Profile -->
+    <string name="tracker_profile_title">Baby profile</string>
+    <string name="tracker_profile_name">Name</string>
+    <string name="tracker_profile_dob">Date of birth</string>
+    <string name="tracker_profile_due">Due date (for preterm correction)</string>
+    <string name="tracker_profile_pick">Pick a date</string>
+    <string name="tracker_profile_sex">Sex at birth (for WHO charts)</string>
+    <string name="tracker_sex_female">Female</string>
+    <string name="tracker_sex_male">Male</string>
+    <string name="tracker_sex_unknown">Not set</string>
+    <string name="tracker_profile_jurisdiction">Vaccine schedule</string>
+    <string name="tracker_profile_allergy_tier">Allergy risk</string>
+    <string name="tracker_tier_low">Low</string>
+    <string name="tracker_tier_moderate">Moderate</string>
+    <string name="tracker_tier_high">High (severe eczema or egg allergy)</string>
+    <string name="tracker_profile_dob_required">Date of birth is required.</string>
+
+    <string name="tracker_sources_title">Sources &amp; citations</string>
+    <!-- The bundled catalog has many citations and modules; neither value is user-controlled. -->
+    <string name="tracker_sources_intro" tools:ignore="PluralsCandidate">%1$d citations across %2$d modules. Tap any line to open the primary source.</string>
+    <string name="tracker_sources_footer">Guidance is informational. Local authorities (WHO, CDC, AAP, NHS, NICE, ASCIA, Red Nose, Lullaby Trust, RCPCH) update their pages; if a citation looks out of date, open it and check the publication date.</string>
+    <string name="tracker_view_sources">View all sources</string>
+    <string name="tracker_sources_copied">No browser — URL copied to clipboard:\n%1$s</string>
+
+    <string name="tracker_timeline_title">Timeline</string>
+    <string name="tracker_timeline_empty">No events logged yet. Return to the dashboard and tap a tile to start.</string>
+    <string name="tracker_timeline_delete_confirm">Delete %1$s?</string>
+    <string name="tracker_timeline_actions">Actions for %1$s</string>
+    <string name="tracker_timeline_action_hint">%1$s. Tap for edit or delete actions.</string>
+    <string name="tracker_edit">Edit</string>
+    <string name="tracker_delete">Delete</string>
+    <string name="tracker_undo">Undo</string>
+    <string name="tracker_undo_accessibility">Undo: %1$s</string>
+    <string name="tracker_saved_undo">Tracker event saved.</string>
+    <string name="tracker_deleted_undo">Tracker event deleted.</string>
+    <string name="tracker_undo_failed">Could not undo the tracker change.</string>
+    <string name="tracker_change_undone">Tracker change undone.</string>
+    <string name="tracker_changes_saved_undo">Changes saved.</string>
+    <string name="tracker_edit_event_title">Edit tracker event</string>
+    <string name="tracker_edit_time">Date and time</string>
+    <string name="tracker_edit_kind">Event type</string>
+    <string name="tracker_edit_subkind">Subtype (optional)</string>
+    <string name="tracker_edit_value">Primary value (optional)</string>
+    <string name="tracker_edit_value_second">Secondary value (optional)</string>
+    <string name="tracker_save_changes">Save changes</string>
+    <string name="tracker_edit_bad_value">Enter a finite value within the safe range for this event type.</string>
+    <string name="tracker_edit_bad_time">Choose a valid time that is not in the future.</string>
+    <string name="tracker_event_missing">That tracker event no longer exists.</string>
+    <string name="tracker_recently_deleted_title">Recently deleted</string>
+    <string name="tracker_recently_deleted_empty">Recently deleted (0)</string>
+    <plurals name="tracker_recently_deleted_count">
+        <item quantity="one">Recently deleted (%1$d)</item>
+        <item quantity="other">Recently deleted (%1$d)</item>
+    </plurals>
+    <string name="tracker_restore">Restore</string>
+    <string name="tracker_restore_confirm">Restore %1$s?</string>
+    <string name="tracker_event_with_subtype">%1$s — %2$s</string>
+    <string name="tracker_kind_feed_breast">Breast feed</string>
+    <string name="tracker_kind_feed_bottle">Bottle feed</string>
+    <string name="tracker_kind_feed_pump">Pumping session</string>
+    <string name="tracker_kind_feed_solid">Solid food</string>
+    <string name="tracker_kind_feed_allergen">Allergen exposure</string>
+    <string name="tracker_kind_diaper_wet">Wet diaper</string>
+    <string name="tracker_kind_diaper_dirty">Dirty diaper</string>
+    <string name="tracker_kind_diaper_mixed">Wet and dirty diaper</string>
+    <string name="tracker_kind_sleep_start">Sleep started</string>
+    <string name="tracker_kind_sleep_end">Sleep ended</string>
+    <string name="tracker_kind_nap_start">Nap started</string>
+    <string name="tracker_kind_nap_end">Nap ended</string>
+    <string name="tracker_kind_growth_weight">Weight</string>
+    <string name="tracker_kind_growth_length">Length or height</string>
+    <string name="tracker_kind_growth_head">Head circumference</string>
+    <string name="tracker_kind_growth_bmi">Body mass index</string>
+    <string name="tracker_kind_growth_muac">Mid-upper arm circumference</string>
+    <string name="tracker_kind_milestone">Milestone observation</string>
+    <string name="tracker_kind_vaccine">Vaccine</string>
+    <string name="tracker_kind_medication">Medication</string>
+    <string name="tracker_kind_temperature">Temperature</string>
+    <string name="tracker_kind_illness">Illness</string>
+    <string name="tracker_kind_activity_tummy">Tummy time</string>
+    <string name="tracker_kind_activity_outdoor">Outdoor activity</string>
+    <string name="tracker_kind_activity_screen">Screen time</string>
+    <string name="tracker_kind_activity_play">Play activity</string>
+    <string name="tracker_kind_note">Note</string>
+    <string name="tracker_kind_photo">Photo</string>
+    <string name="tracker_feed_bottle_cow">Bottle — cow’s milk</string>
+    <string name="tracker_feed_pump_left">Pumping — left</string>
+    <string name="tracker_feed_pump_right">Pumping — right</string>
+    <string name="tracker_feed_pump_both">Pumping — both</string>
+    <string name="tracker_feed_solid_spoon">Spoon feeding</string>
+    <string name="tracker_feed_solid_blw">Baby-led weaning</string>
+    <string name="tracker_drug_aspirin">Aspirin</string>
+    <string name="tracker_sleep_location_crib">Crib</string>
+    <string name="tracker_sleep_location_bassinet">Bassinet</string>
+    <string name="tracker_sleep_location_bedside">Bedside sleeper</string>
+    <string name="tracker_sleep_location_parent_bed">Parent’s bed</string>
+    <string name="tracker_sleep_location_couch">Couch</string>
+    <string name="tracker_sleep_location_car_seat">Car seat</string>
+    <string name="tracker_sleep_location_swing">Swing</string>
+    <string name="tracker_sleep_location_bouncer">Bouncer</string>
+    <string name="tracker_sleep_location_inclined">Inclined sleeper</string>
+    <string name="tracker_sleep_location_other">Other location</string>
+    <string name="tracker_detail_weight">%1$.2f kg</string>
+    <string name="tracker_detail_length">%1$.1f cm</string>
+    <string name="tracker_detail_medication">%1$.0f mg</string>
+    <string name="tracker_detail_temperature">%1$.1f °C</string>
+    <string name="tracker_detail_volume">%1$.0f mL</string>
+    <string name="tracker_detail_protein">%1$.1f g protein</string>
+    <string name="tracker_detail_number">%1$.1f</string>
+    <string name="tracker_detail_separator">\u0020·\u0020</string>
+    <string name="tracker_edit_medication_safety">For medication safety, only the note can be edited here. To correct the drug, dose, weight, or time, delete this row and record it again through Fever &amp; Medication so interval and maximum-dose checks run.</string>
+    <string name="tracker_edit_sleep_order">Sleep cannot end before it starts.</string>
+    <string name="tracker_edit_type_safety">To change the event type, delete this row and record it again through the matching entry screen so its safety checks run.</string>
+    <string name="tracker_btn_timeline">Timeline</string>
+
+    <string name="tracker_vaccine_title_full">Vaccines</string>
+    <string name="tracker_vaccine_next_header">Next due</string>
+    <string name="tracker_vaccine_given_header">Already given</string>
+    <string name="tracker_vaccine_none_given">No vaccines logged yet.</string>
+    <string name="tracker_vaccine_record_given">Mark given</string>
+    <string name="tracker_vaccine_log_given_title">Record %1$s #%2$d as given</string>
+    <string name="tracker_vaccine_log_given_body">Save this dose as given today? You can long-press the row afterwards to remove it.</string>
+    <string name="tracker_btn_vaccine">Vaccines</string>
+
+    <string name="tracker_milestones_title">Milestones</string>
+    <string name="tracker_milestones_bucket">%1$d-month checklist (baby is %2$d mo)</string>
+    <string name="tracker_milestones_too_young">Milestones start at 2 months. Check back then.</string>
+    <string name="tracker_milestone_yes">YES</string>
+    <string name="tracker_milestone_not_yet">Not yet</string>
+    <string name="tracker_milestone_not_sure">Not sure</string>
+    <string name="tracker_milestone_redflag">Red flag — tap to read the CDC milestone page and raise at your next well-child visit.</string>
+    <string name="tracker_btn_milestones">Milestones</string>
+
+    <string name="tracker_profile_delete">Delete this baby</string>
+    <string name="tracker_profile_delete_confirm">Permanently delete %1$s and every tracker event logged for them? This cannot be undone.</string>
+    <string name="tracker_profile_deleted">Profile deleted.</string>
+
+    <string name="tracker_allergen_label_peanut">Peanut</string>
+    <string name="tracker_allergen_label_egg">Egg</string>
+    <string name="tracker_allergen_label_milk">Cow\'s milk</string>
+    <string name="tracker_allergen_label_wheat">Wheat</string>
+    <string name="tracker_allergen_label_soy">Soy</string>
+    <string name="tracker_allergen_label_sesame">Sesame</string>
+    <string name="tracker_allergen_label_tree_nut">Tree nut</string>
+    <string name="tracker_allergen_label_fish">Fish</string>
+    <string name="tracker_allergen_label_shellfish">Shellfish</string>
+    <string name="tracker_allergen_protein_hint">grams protein (e.g. 2)</string>
+    <string name="tracker_allergen_field_allergen">Allergen</string>
+    <string name="tracker_allergen_field_grams">Protein grams</string>
+    <string name="tracker_allergen_field_reaction">Reaction</string>
+    <string name="tracker_allergen_pick_one">Pick an allergen first.</string>
+
+    <string name="tracker_growth_bad_weight">Weight should be between 0.5 and 40 kg.</string>
+    <string name="tracker_growth_bad_length">Length/height should be between 20 and 140 cm.</string>
+    <string name="tracker_growth_bad_head">Head circumference should be between 20 and 70 cm.</string>
+    <plurals name="tracker_growth_out_of_range">
+        <item quantity="one">Age %1$d month is outside the bundled WHO 0–24 mo growth tables. Percentile not shown until extended tables ship.</item>
+        <item quantity="other">Age %1$d months is outside the bundled WHO 0–24 mo growth tables. Percentile not shown until extended tables ship.</item>
+    </plurals>
+    <string name="tracker_med_need_strength">Enter the syrup strength printed on the bottle (mg per 5 mL).</string>
+
+    <string name="tracker_wet_ok">✓</string>
+    <string name="tracker_wet_watch">(watch)</string>
+    <string name="tracker_wet_urgent">(urgent — talk to clinician)</string>
+    <string name="tracker_feed_next_due">Next feed around %1$s – %2$s</string>
+
+    <string name="tracker_disclaimer_title">Not medical advice</string>
+    <string name="tracker_disclaimer_body">This tracker is informational. Dose calculations repeat published guidance from NICE, NHS, AAP, and CDC but do not replace your clinician, pharmacist, or the label on the bottle. In an emergency call 999 / 911 / 000.</string>
+    <string name="tracker_disclaimer_confirm">I understand</string>
+
+    <string name="tracker_anaphylaxis_header">CALL EMERGENCY SERVICES</string>
+    <string name="tracker_anaphylaxis_body">Anaphylaxis recorded. Give adrenaline / epinephrine if prescribed, lay the child flat, and call emergency services now. Follow the ASCIA Action Plan.</string>
+    <string name="tracker_anaphylaxis_open_plan">Open ASCIA Action Plan</string>
+    <string name="tracker_anaphylaxis_call">Call emergency services</string>
+    <string name="tracker_anaphylaxis_safe">My baby is safe now</string>
+    <string name="tracker_anaphylaxis_confirm_dismiss">Only dismiss if the child has been assessed and is safe. Continue?</string>
+    <string name="tracker_anaphylaxis_no_dialer">No dialer app available — call %1$s on another phone immediately.</string>
+    <string name="tracker_anaphylaxis_no_browser">No browser — URL copied to clipboard:\n%1$s</string>
+    <string name="tracker_loading">Loading…</string>
+    <string name="exportDiagnosticBundle">Export diagnostic bundle</string>
+    <string name="exportBundleProgress">Building diagnostic bundle…</string>
+    <string name="exportBundleFailed">Failed to build diagnostic bundle</string>
+    <string name="shareDiagnosticBundle">Share diagnostic bundle</string>
+    <string name="runCameraSelfTest">Run camera self-test</string>
+    <string name="cameraSelfTestTitle">Camera capability check</string>
+    <string name="openSecurityStatus">Open security status</string>
+    <!-- #297: honest privacy surfacing. -->
+    <string name="privacyChip">🔒 Local-only · No cloud · No tracking ›</string>
+    <string name="settingUpdateCheck">Automatic update check</string>
+    <string name="settingUpdateCheckHint">Once a day, ask GitHub if a newer version exists (no personal data). This is the app\'s only outbound internet — turn it off for zero egress.</string>
+    <!-- #296: app lock. -->
+    <string name="settingAppLock">Require unlock to open</string>
+    <string name="settingAppLockHint">Ask for your device PIN / pattern / fingerprint before showing the monitor.</string>
+    <string name="settingHighContrast">High contrast</string>
+    <string name="settingHighContrastHint">Maximum-contrast colors (WCAG AA) for low vision. Overrides the chosen theme.</string>
+    <string name="settingMonitorKeepScreenOn">Keep screen on in monitor mode</string>
+    <string name="settingMonitorKeepScreenOnHint">Monitor mode stays a dark, glanceable, tap-to-wake screen. Turn off to let the display sleep on its normal timeout.</string>
+    <string name="appLockTitle">Child Monitor is locked</string>
+    <string name="appLockPrompt">Unlock to open the monitor</string>
+    <string name="appLockUnlock">Unlock</string>
+    <string name="appLockNoDeviceLock">Set a screen lock (PIN, pattern, or biometric) on your device first.</string>
+    <string name="appLockAutoDisabled">App lock was turned off because your device no longer has a screen lock.</string>
+    <!-- #375: optional in-app PIN (additive to the device lock). -->
+    <string name="appLockPinPrompt">Enter your app PIN</string>
+    <string name="appLockPinHint">PIN</string>
+    <string name="appLockUseDeviceLock">Use device lock instead</string>
+    <string name="appLockPinWrong">Wrong PIN</string>
+    <string name="appLockPinWait">Too many attempts — wait %1$d s, or use your device lock.</string>
+    <string name="settingAppPin">App PIN</string>
+    <string name="settingAppPinHint">Optional extra PIN to unlock the app, on top of your device lock.</string>
+    <string name="settingAppPinButton">Set / change app PIN</string>
+    <string name="pinSetupTitle">App PIN</string>
+    <string name="pinSetupEnter">Choose a 4–8 digit PIN. You can always fall back to your device lock if you forget it.</string>
+    <string name="pinSetupEnterChange">Enter a new 4–8 digit PIN, or remove the current one.</string>
+    <string name="pinSetupHintPin">PIN (4–8 digits)</string>
+    <string name="pinSetupHintConfirm">Re-enter PIN</string>
+    <string name="pinSetupSave">Set PIN</string>
+    <string name="pinSetupChange">Change PIN</string>
+    <string name="pinSetupRemove">Remove PIN</string>
+    <string name="pinSetupInvalid">PIN must be 4–8 digits.</string>
+    <string name="pinSetupMismatch">PINs don\'t match.</string>
+    <string name="pinSetupSaved">App PIN set.</string>
+    <string name="pinSetupRemoved">App PIN removed.</string>
+    <string name="pinSetupNeedDeviceLock">Set a device screen lock first — the app PIN works alongside it.</string>
+    <!-- #320: alert special-access (DnD bypass + full-screen intent). -->
+    <string name="alertAccessGranted">✓ Alerts can bypass Do-Not-Disturb and wake the screen.</string>
+    <string name="alertAccessNeeded">⚠ Do-Not-Disturb may silence alerts — grant access below so a disconnect or cry still gets through.</string>
+    <string name="alertAccessHint">A baby-monitor alert should reach you even with the phone silenced. These grant the special access Android needs to honor that.</string>
+    <string name="alertAccessGrantDnd">Let alerts bypass Do-Not-Disturb</string>
+    <string name="alertAccessGrantFsi">Allow full-screen alerts</string>
+    <plurals name="tracker_med_stale_weight">
+        <item quantity="one">⚠ Weight measurement is %1$d day old — log a fresh weight before dosing if possible</item>
+        <item quantity="other">⚠ Weight measurement is %1$d days old — log a fresh weight before dosing if possible</item>
+    </plurals>
+    <string name="tracker_btn_export_events">Export last 30 days (CSV)</string>
+    <string name="tracker_export_no_events">No events in the last 30 days to export</string>
+    <string name="tracker_export_failed">Export failed</string>
+    <string name="tracker_save_failed">Could not save. Your entries are still on screen; please try again.</string>
+    <string name="tracker_load_failed">Could not load tracker data. Please try again.</string>
+    <string name="tracker_feed_bad_duration">Duration must be between 1 and 360 minutes.</string>
+    <string name="tracker_feed_bad_volume">Volume must be between 0 and 2000 mL.</string>
+    <string name="tracker_sleep_bad_temperature">Room temperature must be a finite value between -10 and 50 °C.</string>
+    <string name="tracker_growth_need_value">Enter at least one growth measurement.</string>
+    <string name="tracker_allergen_bad_grams">Protein amount must be a finite value between 0 and 1000 g.</string>
+    <string name="tracker_export_share_title">Share tracker CSV</string>
+    <string name="tracker_btn_pumping">Log pumping</string>
+    <string name="tracker_btn_tummy">Log tummy time</string>
+    <string name="tracker_pumping_title">Pumping session</string>
+    <string name="tracker_tummy_title">Tummy time</string>
+    <string name="tracker_field_duration_min">Duration (minutes)</string>
+    <string name="tracker_field_volume_ml">Volume (mL) — optional</string>
+    <string name="tracker_saved_with_min">Saved (%1$d min)</string>
+    <string name="tracker_anaphylaxis_no_dismiss_notification">Anaphylaxis logged but notifications are blocked. Grant notification permission in settings so the red-screen alert can be re-shown from the background.</string>
+    <!-- #364: spoken to TalkBack users when a child device is found during discovery. -->
+    <plurals name="discoveredChildren">
+        <item quantity="one">Found %1$d child device</item>
+        <item quantity="other">Found %1$d child devices</item>
+    </plurals>
+    <string name="sessionToolsOpen">Session tools &amp; settings</string>
+    <string name="pairedParentName">Parent phone (%1$s)</string>
+    <string name="talkbackSessionRetry">Talkback session is renewing. Try again in a moment.</string>
+</resources>

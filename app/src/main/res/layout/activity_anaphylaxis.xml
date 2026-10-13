@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9b1c1c"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tracker_anaphylaxis_header"
+        android:tag="theme_text_primary"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/tracker_anaphylaxis_body"
+        android:textColor="#ffecec"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnCall"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="32dp"
+        android:background="#ffffff"
+        android:text="@string/tracker_anaphylaxis_call"
+        android:textColor="#9b1c1c"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnOpenPlan"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:tag="theme_btn_secondary"
+        android:text="@string/tracker_anaphylaxis_open_plan" />
+
+    <Button
+        android:id="@+id/btnDismiss"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="48dp"
+        android:tag="theme_btn_secondary"
+        android:text="@string/tracker_anaphylaxis_safe" />
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="trackerUndoBar" type="id" />
+    <item name="trackerUndoButton" type="id" />
+    <item name="nightLightTimerControls" type="id" />
+    <item name="nightLightTimerStatus" type="id" />
+    <item name="sootherTimerControls" type="id" />
+    <item name="sootherTimerStatus" type="id" />
+    <item name="nightLightTimerFor" type="id" />
+    <item name="nightLightTimerUntil" type="id" />
+    <item name="nightLightTimerClear" type="id" />
+    <item name="sootherTimerFor" type="id" />
+    <item name="sootherTimerUntil" type="id" />
+    <item name="sootherTimerClear" type="id" />
+</resources>

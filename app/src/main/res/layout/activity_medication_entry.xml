@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tracker_med_title"
+            android:tag="theme_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#2a1f1f"
+            android:padding="10dp"
+            android:text="@string/tracker_disclaimer_body"
+            android:textColor="#ffc29a"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_temp_c"
+            android:tag="theme_text_secondary" />
+        <EditText
+            android:id="@+id/tempEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:hint="@string/tracker_example_temperature" />
+
+        <!-- #150: NICE NG143 traffic-light symptom checklist. Hidden until a
+             parseable temperature is entered; the fever band below derives
+             from temperature + these observable signs, not temperature alone. -->
+        <LinearLayout
+            android:id="@+id/checklistGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="@string/tracker_checklist_title"
+                android:tag="theme_text_secondary" />
+
+            <CheckBox android:id="@+id/chkPaleMottled" android:text="@string/tracker_chk_pale"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkUnresponsive" android:text="@string/tracker_chk_unresponsive"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkWeakCry" android:text="@string/tracker_chk_weak_cry"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkGrunting" android:text="@string/tracker_chk_grunting"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkApnoea" android:text="@string/tracker_chk_apnoea"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkRespRate60" android:text="@string/tracker_chk_resp60"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkTachycardia" android:text="@string/tracker_chk_tachy"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkSkinTurgor" android:text="@string/tracker_chk_turgor"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkNonBlanchingRash" android:text="@string/tracker_chk_rash"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <CheckBox android:id="@+id/chkNeuroSigns" android:text="@string/tracker_chk_neuro"
+                android:tag="theme_text_primary"
+                android:textSize="13sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/feverReadout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:tag="theme_text_secondary"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#28324e"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@string/tracker_med_drug"
+            android:tag="theme_text_secondary" />
+        <RadioGroup
+            android:id="@+id/drugGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/drugParacetamol" android:text="@string/tracker_drug_paracetamol"
+                android:tag="theme_text_primary" android:checked="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:id="@+id/drugIbuprofen" android:text="@string/tracker_drug_ibuprofen"
+                android:tag="theme_text_primary"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:text="@string/tracker_med_weight"
+            android:tag="theme_text_secondary" />
+        <EditText
+            android:id="@+id/weightEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:hint="@string/tracker_example_med_weight" />
+
+        <!-- #178: stale-weight warning surfaced when the last GROWTH_WEIGHT
+             event is older than 30 days. Hidden by default; populated and
+             made visible from MedicationEntryActivity.onCreate. -->
+        <TextView
+            android:id="@+id/weightStaleBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:textColor="@color/tracker_warning"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:text="@string/tracker_med_strength"
+            android:tag="theme_text_secondary" />
+        <EditText
+            android:id="@+id/strengthEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:hint="@string/tracker_example_strength" />
+
+        <Button
+            android:id="@+id/recommendButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:tag="theme_btn_primary"
+            android:text="@string/tracker_med_recommend" />
+
+        <TextView
+            android:id="@+id/recommendText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:tag="theme_text_secondary"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:tag="theme_btn_primary"
+            android:text="@string/tracker_med_record_given" />
+    </LinearLayout>
+</ScrollView>
