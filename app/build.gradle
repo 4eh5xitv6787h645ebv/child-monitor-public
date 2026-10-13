@@ -127,9 +127,9 @@ if (releasePackagingRequested && !hasReleaseSigning) {
 }
 
 dependencies {
-    implementation 'androidx.core:core:1.12.0'
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core:1.19.1'
+    implementation 'androidx.core:core-ktx:1.19.1'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
     // Lifecycle-aware biometric/device-credential app lock (#375). This replaces the deprecated
     // createConfirmDeviceCredentialIntent path and keeps cancellation/error handling fail-closed.
     implementation 'androidx.biometric:biometric:1.1.0'
@@ -153,17 +153,17 @@ dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
 
     // Coroutines to simplify background streaming tasks
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
 
     // QR code: zxing core for encoding (child), zxing-android-embedded for the
     // camera-based scanner UI (parent). No Play Services dependency.
-    implementation 'com.google.zxing:core:3.5.3'
+    implementation 'com.google.zxing:core:3.5.4'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
     // Unit testing
     testImplementation 'junit:junit:4.13.2'
     // Match AGP 9.3's built-in Kotlin runtime/compiler line.
-    testImplementation 'org.jetbrains.kotlin:kotlin-test:2.2.10'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test:2.4.21'
     // Real org.json so tests relying on JSONObject don't hit Android's unmocked stubs.
     testImplementation 'org.json:json:20240303'
 
