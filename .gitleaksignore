@@ -1,1 +1,4 @@
-# Fingerprint-specific reviewed preference-name false positives.
+# Reviewed preference schema names, not secrets. Exact introducing commit/path/rule/line only.
+e0a88c0b21a86c705ae82b1b3ec1b86f91af6285:app/src/main/kotlin/de/rochefort/childmonitor/integrations/mqtt/MqttConfigStore.kt:generic-api-key:97
+e0a88c0b21a86c705ae82b1b3ec1b86f91af6285:app/src/main/kotlin/de/rochefort/childmonitor/integrations/mqtt/MqttConfigStore.kt:generic-api-key:98
+e0a88c0b21a86c705ae82b1b3ec1b86f91af6285:app/src/main/kotlin/de/rochefort/childmonitor/integrations/mqtt/MqttConfigStore.kt:generic-api-key:102
