@@ -165,7 +165,7 @@ dependencies {
     // Match AGP 9.3's built-in Kotlin runtime/compiler line.
     testImplementation 'org.jetbrains.kotlin:kotlin-test:2.2.10'
     // Real org.json so tests relying on JSONObject don't hit Android's unmocked stubs.
-    testImplementation 'org.json:json:20240303'
+    testImplementation 'org.json:json:20260814'
 
     // On-device lifecycle/storage coverage (#462). Versions match the stable AndroidX Test
     // channel documented by Android Developers (January 2026).
