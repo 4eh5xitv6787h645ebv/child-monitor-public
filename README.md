@@ -1,6 +1,8 @@
 # Child Monitor Dev
 An open source, local-first baby monitor for Android 14 and newer.
 
+[Download the latest signed release](https://github.com/4eh5xitv6787h645ebv/child-monitor-public/releases/latest).
+
 Child Monitor Dev connects one child phone to one or more parent phones:
 1. A **Child Device** stays with the baby and streams audio (plus low-bandwidth camera snapshots).
 2. Each **Parent Device** listens in real time, can view snapshots/fullscreen feed, and can push-to-talk.

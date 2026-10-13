@@ -1,76 +1,53 @@
-# PRIVACY POLICY FOR CHILD MONITOR
+# Privacy policy for Child Monitor
 
-This privacy policy governs your use of the software application Child Monitor (“Application”) for mobile devices.
-The Application is a simple network based baby monitor.
+Updated 13 October 2026.
 
-# What information does the Application obtain and how is it used?
+Child Monitor connects a child phone to one or more parent phones over a private network or VPN.
+There is no required account or developer-operated audio/video relay.
 
-The Application allows one device (a parent device) to listen to the microphone of a second device
-(a child device). Both devices must pair for the connection to be established. The audio data recorded
-from the child device and transmitted to the parent device is sent directly between devices and is not
-tranmitted to a third party. Any data produced by the application is only stored on the mobile device
-or transmitted to a paired device and is not transmitted of off the device to the developer or a
-third-party.
+## Monitoring and local storage
 
-If a crash occurs, a dialog may appear with crash details and a suggestion to transmit the details
-to the developer. A user has the option to not send the crash details; a user must 'opt-in' to
-sending such details.
+Microphone audio, camera snapshots, status, and alerts are sent directly to connected parent devices.
+Pairing credentials, settings, diagnostic logs, optional recordings, and care-tracker entries are stored
+in app-private storage on the relevant phone. Tracker entries may include information you enter about
+a child, such as their name, dates, feeds, sleep, and notes.
 
-# User Provided Information 
+Secure QR pairing uses pinned TLS. Legacy connections and the local HTTP console can use plaintext,
+so use a trusted private network or VPN. Pairing remains until revoked or the relevant app data or
+credential keys are removed.
 
-The Application does not have a registration option. The only information which is obtained
-is (1) crash details which a user intentionally send to the developer via the app, and 
-(2) any information provided by the App Store that the application was downloaded from.
+## Optional network requests
 
-# Automatically Collected Information 
+Automatic update checking is enabled by default and checks GitHub release metadata at most once a
+day when the app runs. GitHub receives normal connection metadata, including the requesting IP
+address. The request does not upload monitoring media, tracker entries, or pairing credentials.
+You can disable automatic update checking in Settings. Updates are notifications linking to a
+release page; the app does not automatically download or install an APK.
 
-No information is automatically collected from the Application and transmitted off of the mobile device, 
-either automatically or manually.
+Optional MQTT/Home Assistant integration sends configured status and event data to the broker you
+choose. This integration is disabled unless you configure and enable it. The broker's privacy and
+security depend on your chosen service and network.
 
-# Does the Application collect precise real time location information of the device?
+## Exports and sharing
 
-No.
+Backups, exports, and Android share actions can send selected data to a destination you choose.
+Diagnostic bundles can contain device and network information. Review them before sharing and
+remove private details. The app does not automatically submit diagnostic bundles to the developer.
 
-# Do third parties see and/or have access to information obtained by the Application?
+## Permissions and controls
 
-Any crash data which is intentionally submitted by a user to the developer is stored on an email server
-which is not owned by the developer. Crash details may be uploaded to a third-party development tool
-such as GitHub. In such a case the email address of the user is not uploaded, unless specifically requested
-by the user. Besides this, no other data is transmitted off of the mobile device by the Application.
+Microphone and camera permissions enable monitoring features; notification and other optional
+permissions enable the corresponding alerts, background operation, or device controls. The app
+does not request location permission to track your location.
 
-# What are my opt-out rights?
+You can revoke a parent on the child phone, change settings, delete supported local logs/recordings,
+and remove app data using Android Settings. Clearing app data or uninstalling removes local pairing
+and requires pairing again. Copies you previously exported must be removed from their destination
+separately. Android's own storage and backup settings also apply.
 
-The only data collection is that of crash details, and submitting these to the developer is only opt-in. To
-opt-out, a user would have to not submit crash details via the app.
+## Contact
 
-# Data Retention Policy, Managing Your Information
-
-Crash details submitted by a user are stored on a third-party email service, and the retention policy is to
-not delete such emails.
-
-# Children
-
-This Application is not used to knowingly solicit data from or market to children under the age of 13. If a parent or
-guardian becomes aware that his or her child has provided us with information without their consent, he or she should
-contact me at github@rochefort.de. I will delete such information from my files within a reasonable time.
-
-# Security
-
-I am concerned about safeguarding the confidentiality of your information. The only information which could
-be sent to the developer is crash details, and these are opt-in. If a user is presented with the option to
-submit details on a crash, all the information which would be submitted is presented to the user. The only
-personally identifiable information is the email address of the user which is used to send the crash details.
-
-The data transferred between two paired devices is transmitted unencrypted. It is the responsiblity of the user to
-only transfer data through otherwise secured channels.
-
-# Changes
-
-This Privacy Policy may be updated from time to time for any reason. I will notify you of any changes to this
-Privacy Policy by posting the new Privacy Policy here. You are advised to consult this Privacy Policy regularly
-for any changes, as continued use is deemed approval of all changes. You can check the history of this policy by
-checking this history of this file in GitHub.
-
-# Contact me
-If you have any questions regarding privacy while using the Application, or have questions about our practices,
-please contact me via email at github@rochefort.de.
+Questions about this version can be raised at
+[the public project](https://github.com/4eh5xitv6787h645ebv/child-monitor-public/issues).
+Public issues are visible to others; exclude pairing secrets, QR codes, personal records, and private
+diagnostic captures. Changes to this policy are recorded in this file's Git history.
