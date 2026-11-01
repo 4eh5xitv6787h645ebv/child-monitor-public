@@ -72,7 +72,7 @@ jobs:
           REPORT_DIRECTORY: app/build/reports/security
         run: mkdir -p "$REPORT_DIRECTORY"
       - name: Generate Android SAST evidence
-        uses: MobSF/mobsfscan@3d87bc570c4614d705547bddb521395663dba353 # v0.4.5
+        uses: MobSF/mobsfscan@18cce72c077cbac1925439c3158363fd3bb361aa # v1.1.0
         with:
           args: app/src/main --type android --config security/mobsfscan.yml --sarif -o app/build/reports/security/mobsfscan.sarif
       - name: Fail on actionable SAST findings
